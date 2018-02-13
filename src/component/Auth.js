@@ -1,97 +1,82 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, StatusBar} from "react-native";
 import color from '../assets/colors';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Video from "react-native-video";
+import bgVideo from '../assets/bg.mov';
+
 
 
 class Auth extends Component {
+  
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.logoContainer} >
-                   
-                </View>
-                <Image
-                    style={styles.bgImage}
-                    source={require('../assets/bg.png')}
+                <Video  
+                    muted={false}   
+                    repeat={true}   
+                    source={bgVideo}
+                    resizeMode="cover" style={StyleSheet.absoluteFill} 
                 />
-                <Image
-                    style={styles.logo}
-                    source={require('../assets/logo.png')}
-                />
-                <View style={styles.authContainer}>
-                    <View style={styles.buttonContainer}>
-                        <Image
-                            source={require('../assets/google.png')}
-                            style = {styles.icon}
-                        />
-                        <Text> Continue with Google </Text>
-                    </View>
-                    <View style={styles.buttonContainer}>
-                        <Image
-                            source={require('../assets/google.png')}
-                            style={styles.icon}
-                        />
-                        <Text> Continue with Google </Text>
-                    </View>
+                <View style={styles.buttonContainer}>
+                    <Image
+                        source={require('../assets/logo.png')}
+                        style={{width: 200, height: 200,  marginBottom: 50}}
+                    />
+                
+                    <TouchableOpacity
+                        style={[styles.button, {marginTop: 100}]}
+                    >
+                        <View style={styles.buttonWrapper}>
+                            <Image
+                                style={{width: 30, height: 30, marginRight: 10}}
+                                source={require('../assets/google.png')}
+                            />
+                            <Text style={{color: '#000'}}>Continue with Google</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.button, {backgroundColor: '#3b5998'}]}
+                >
+                        <View style={styles.buttonWrapper}>
+                           <Icon
+                                name={'logo-facebook'}
+                                color={'#fff'}
+                                size={30}
+                                style={{ marginRight: 10}}
+                           />
+                            <Text style={{ color: '#fff' }}>Continue with Google</Text>
+                        </View>
+                    </TouchableOpacity>
+                    
                 </View>
             </View>
         );
     }
 }
 
-const styles=  StyleSheet.create({
-    container : {
-        flex :1,
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    buttonContainer: { width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' },
+    button: {
+        width: '60%',
+        height: 45,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        alignItems: 'center',
         justifyContent: 'center',
-        alignItems : 'center'
+        marginTop: 20
     },
-    logoContainer :{
-        flex:1,
-        width: 250,
-        height: '60%',
-        backgroundColor: color.themeColor ,
-        opacity: 0.7,
-        borderRadius: 125,
-        transform: [
-            { scaleX: 2 }
-        ],
-        position :'absolute',
-        top :-39,
-        justifyContent :'center',
-        alignItems :'center'
-    },
-    bgImage : {
-        height: '100%',
+    buttonWrapper: {
         width: '100%',
-        marginTop :0,
-        position: 'absolute',
-    },
-    logo : {
-        height :180,
-        width: 180,
-        top : '15%'
-    },
-    authContainer :{
-        flex:1,
-        width :'100%',
-        justifyContent :'center',
-        alignItems :'center',
-        paddingTop: 40
-    },
-    buttonContainer : {
-        flexDirection : 'row',
-        alignItems :'center',
+        flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'center',
-        height :50,
-        width: '65%',
-        borderRadius :4,
-        backgroundColor : '#fff',
-        marginTop :20
-    },
-    icon : {
-        height : 30,
-        width :30,
-        marginRight: 10
     },
 
 });
