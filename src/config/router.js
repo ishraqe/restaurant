@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableOpacity } from "react-native";
 import { StackNavigator, TabNavigator, TabBarBottom, DrawerNavigator} from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import color from '../assets/colors';
@@ -14,32 +15,33 @@ const tabScreen = TabNavigator({
     Home: {
         screen: HomeScreen,
         navigationOptions: ({ navigation }) => ({
-            title: 'Home',
-            tabStyle: { backgroundColor: 'red', marginRight: 20, width: 100 }
+            headerTitle: 'Home',
+            tabStyle: { backgroundColor: 'red', width: 100, justifyContent: 'center', alignItems :'center' }
         }),
 
     },
     Search: {
         screen: SearchScreen,
         navigationOptions: ({ navigation }) => ({
-            title: 'Search',
+            headerTitle: 'Search',
         }),
     },
     Notification: {
         screen: NotificationScreen,
         navigationOptions: ({ navigation }) => ({
-            title: 'Notifications',
+            headerTitle: 'Notifications',
         }),
     },
     Bookmark: {
         screen: BookmarkScreen,
         navigationOptions: ({ navigation }) => ({
-            title: 'Bookmark',
+            headerTitle: 'Bookmark',
         }),
     }
 },
 {
     navigationOptions: ({ navigation }) => ({
+        
         tabBarIcon: ({ focused }) => {
             const { routeName } = navigation.state;
             let iconName;
@@ -54,6 +56,23 @@ const tabScreen = TabNavigator({
             }
             return <Icon name={iconName} size={25} color={color.themeColor} />;
         },
+        headerLeft: (
+            <TouchableOpacity 
+                style={{marginLeft :20}}
+                onPress={() => navigation.navigate('DrawerToggle')}  >
+                <Icon 
+                    name = 'md-menu'
+                    size = {30}
+                    color = {color.themeColor}
+                />
+            </TouchableOpacity>
+        ),
+        headerTitleStyle: {
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginLeft :'35%'
+        },
+       
     }),
     tabBarOptions: {
         activeTintColor: 'tomato',
@@ -69,7 +88,6 @@ const DrawerScene = StackNavigator({
     Auth: {
         screen: Auth,
         navigationOptions: {
-
             header: null,
         }
     }, 
@@ -82,9 +100,3 @@ export default DrawerNavigator({
   
 });
 
-// export const RootStack = StackNavigator({
-   
-//     Main : {
-//         screen:
-//     }
-// });

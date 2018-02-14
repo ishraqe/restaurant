@@ -5,7 +5,9 @@ import StackNavigator from './config/router';
 class App extends Component {
     render () {
         return (
-            <StackNavigator />
+            <View style={{flex:1}}>
+                <StackNavigator />
+            </View>
         );
     }
 }
