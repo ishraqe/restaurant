@@ -1,14 +1,17 @@
 import React from 'react';
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { StackNavigator, TabNavigator, TabBarBottom, DrawerNavigator} from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import color from '../assets/colors';
+
+
 import Auth from "../screen/Auth";
 import HomeScreen from '../screen/Home';
 import SearchScreen from '../screen/Search';
 import NotificationScreen from '../screen/Notifications';
 import BookmarkScreen from '../screen/Bookmark';
 import DrawerScreen from '../screen/DrawerScreen';
+import Map from '../screen/Map';
 
 
 const tabScreen = TabNavigator({
@@ -16,7 +19,6 @@ const tabScreen = TabNavigator({
         screen: HomeScreen,
         navigationOptions: ({ navigation }) => ({
             headerTitle: 'Home',
-            tabStyle: { backgroundColor: 'red', width: 100, justifyContent: 'center', alignItems :'center' }
         }),
 
     },
@@ -24,6 +26,12 @@ const tabScreen = TabNavigator({
         screen: SearchScreen,
         navigationOptions: ({ navigation }) => ({
             headerTitle: 'Search',
+        }),
+    },
+    Map: {
+        screen: Map,
+        navigationOptions: ({ navigation }) => ({
+            headerTitle: 'Map',
         }),
     },
     Notification: {
@@ -53,7 +61,10 @@ const tabScreen = TabNavigator({
                 iconName = `ios-notifications${focused ? '' : '-outline'}`;
             } else if (routeName === 'Bookmark') {
                 iconName = `ios-bookmark${focused ? '' : '-outline'}`;
+            } else if (routeName === 'Map') {
+                iconName = `ios-pin${focused ? '' : '-outline'}`;
             }
+            
             return <Icon name={iconName} size={25} color={color.themeColor} />;
         },
         headerLeft: (

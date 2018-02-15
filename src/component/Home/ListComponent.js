@@ -25,7 +25,9 @@ const ListComponent  = (props) => {
                     </View>
                     <View style={styles.infoContainer}>
                         <Text style={styles.status}>Open now</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>.</Text>                        
                         <Text style={styles.loca}>40 Kilo from you</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', }}>.</Text>                        
                         <Text style={styles.loca}>Hanoi, Vietnam</Text>
                     </View>
                 </View>
@@ -74,7 +76,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 20,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     status : {
         color: color.themeColor
