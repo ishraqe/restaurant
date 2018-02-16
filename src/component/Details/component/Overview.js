@@ -67,7 +67,7 @@ class OverView extends Component {
     render() {
         const example1 = this.mainExample(1);
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: '#fff', }}>
                 <ScrollView
                     style={{ flex: 1 }}
 
@@ -136,7 +136,8 @@ const style = StyleSheet.create({
         minHeight: 100,
         paddingTop: 20,
         paddingLeft: 20,
-        paddingRight: 20
+        paddingRight: 20,
+        
     },
     title: {
         fontSize: 20,

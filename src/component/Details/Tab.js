@@ -5,21 +5,24 @@ import {
 
 import ScrollableTabView, { DefaultTabBar, } from 'react-native-scrollable-tab-view';
 import OverView from './component/Overview';
+import Menu from './component/Menu';
+import Review from './component/Review';
+
 import color from '../../assets/colors';
 
 
 export default () => {
     return <ScrollableTabView
-        style={{ marginTop: 20, }}
         initialPage={0}
         renderTabBar={() => <DefaultTabBar />}
         tabBarPosition = 'bottom'
+        style= {{backgroundColor: '#fff'}}
         tabBarActiveTextColor={color.themeColor}
         tabBarUnderlineStyle = {{backgroundColor: color.themeColor}}
     >
        
         <OverView tabLabel='Overview'/>
-        <Text tabLabel='Menu'>favorite</Text>
-        <Text tabLabel='Review'>project</Text>
+        <Menu tabLabel='Menu' />
+        <Review tabLabel='Review' />
     </ScrollableTabView>;
 }
