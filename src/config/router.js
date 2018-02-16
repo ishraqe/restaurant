@@ -12,7 +12,7 @@ import NotificationScreen from '../screen/Notifications';
 import BookmarkScreen from '../screen/Bookmark';
 import DrawerScreen from '../screen/DrawerScreen';
 import Map from '../screen/Map';
-
+import Details from '../screen/Details';
 
 const tabScreen = TabNavigator({
     Home: {
@@ -95,19 +95,26 @@ const tabScreen = TabNavigator({
     swipeEnabled: false,
 });
 
-const DrawerScene = StackNavigator({
+const DrawerScene = DrawerNavigator({
+    Stacks : { screen: tabScreen },
+})  
+
+export default StackNavigator({
     Auth: {
         screen: Auth,
         navigationOptions: {
             header: null,
         }
     }, 
-    Stacks : { screen: tabScreen }
-})  
-
-export default DrawerNavigator({
-   
-    Drawer: { screen: DrawerScene },
+    Details: {
+        screen: Details,
+        navigationOptions: {
+            title: ''
+        }
+    },
+    Drawer: { 
+        screen: DrawerScene ,
+    },
   
 });
 

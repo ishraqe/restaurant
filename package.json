@@ -9,8 +9,11 @@
   "dependencies": {
     "react": "16.2.0",
     "react-native": "0.53.0",
+    "react-native-elements": "^0.19.0",
+    "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-shadow": "^1.2.2",
+    "react-native-snap-carousel": "^3.6.0",
     "react-native-svg": "^6.1.4",
     "react-native-vector-icons": "^4.5.0",
     "react-native-video": "^2.0.0",

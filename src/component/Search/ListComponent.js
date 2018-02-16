@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableNativeFeedback } from "react-native";
 import { Card, CardSection } from "../common/index";
 import color from '../../assets/colors';
+import {Actions} from 'react-native-router-flux';
 
 
 const ListComponent = (props) => {
     return (
         <View style={{ marginTop: 20, width: '100%', paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>
+           
             <CardSection>
                 <View style={{width: '100%', flexDirection: 'row'}}>
                     <View style={styles.imageCover}>
