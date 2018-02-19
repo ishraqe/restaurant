@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, TouchableNativeFeedback } from "react-native";
 import { Card, CardSection } from "../common/index";
 import color from '../../assets/colors';
-import {Actions} from 'react-native-router-flux';
+
 
 
 const ListComponent = (props) => {

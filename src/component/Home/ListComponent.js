@@ -7,8 +7,7 @@ import { withNavigation } from 'react-navigation'
 
 
 const ListComponent  = (props) => {
-    console.log(props);
-    
+
     return (
             <View style={{marginTop: 20, width: '100%', paddingLeft: 10, paddingRight: 10, borderRadius: 5}}>
                 <TouchableOpacity

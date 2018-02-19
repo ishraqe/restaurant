@@ -14,7 +14,7 @@ class Auth extends Component {
             <View style={styles.container}>
                 <Video  
                     muted={false}   
-                    repeat={true}   
+                    repeat={false}   
                     source={bgVideo}
                     resizeMode="cover" style={StyleSheet.absoluteFill} 
                 />

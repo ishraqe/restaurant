@@ -8,7 +8,7 @@ class Home  extends Component {
 
     render () {
         return (
-            <ScrollView style={{flex:1}} >
+          
                 <View style={styles.container}>
                     <View style={styles.iconContainer}>
                         <BoxShadow setting={color.shadowOpt}>
@@ -65,7 +65,7 @@ class Home  extends Component {
                         />
                     </View>
                 </View>
-            </ScrollView>
+          
         );
     }
 }

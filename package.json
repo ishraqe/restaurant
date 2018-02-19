@@ -7,9 +7,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@mapbox/polyline": "^0.2.0",
+    "lodash": "^4.17.5",
     "react": "16.2.0",
     "react-native": "0.53.0",
     "react-native-elements": "^0.19.0",
+    "react-native-google-places": "^2.4.2",
+    "react-native-maps": "^0.20.1",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-shadow": "^1.2.2",
