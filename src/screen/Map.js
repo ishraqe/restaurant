@@ -48,7 +48,8 @@ class Map extends Component {
 
     getRestaurent = () => {
         console.log('ex');
-        let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=23.7510271,90.3793187&radius=500&type=restaurant&key=AIzaSyCc4aVWLkCZyvh8ERdTuVg0UgPfeux2kz4';
+      
+        let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+this.state.focusedLocation.latitude+','+this.state.focusedLocation.longitude+'&radius=50000&type=restaurant&key=AIzaSyCc4aVWLkCZyvh8ERdTuVg0UgPfeux2kz4';
         fetch(url)
             .then(response => {
                 if (response) {
@@ -58,6 +59,8 @@ class Map extends Component {
                 }
             })
             .then(data => {
+                console.log(data);
+                
                 this.setState({restaurant: data.results})
             }).catch(error => this.setState({ error, isLoading: false }));
     }
