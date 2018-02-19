@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, TextInput } from 'react-native';
 import MapView, { Marker} from 'react-native-maps';
 import color from '../assets/colors';
 
@@ -91,6 +91,11 @@ class Map extends Component {
 
         return (
             <View style={{flex:1}}>
+                <View style={{position: 'absolute', top : 10, height: 200, zIndex: 1, width: '100%'}}>
+                   <TextInput 
+                    placeholder= 'Search here !!'
+                   />
+                </View>
                 <MapView 
                     initialRegion={this.state.focusedLocation}
                     style={styles.map}
@@ -123,7 +128,8 @@ class Map extends Component {
 
 const styles =  StyleSheet.create({
     map: {
-        ...StyleSheet.absoluteFillObject,
+       width: '100%',
+       height: '100%'
     },
 });
 export default Map;
