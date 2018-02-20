@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { TouchableOpacity, View } from "react-native";
-import { StackNavigator, TabNavigator, TabBarBottom, DrawerNavigator} from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import color from '../assets/colors';
+import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
 
 
 import Auth from "../screen/Auth";
@@ -13,108 +13,92 @@ import BookmarkScreen from '../screen/Bookmark';
 import DrawerScreen from '../screen/DrawerScreen';
 import Map from '../screen/Map';
 import Details from '../screen/Details';
+import Tab from '../component/Details/Tab'
 
-const tabScreen = TabNavigator({
-    Home: {
-        screen: HomeScreen,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: 'Home',
-        }),
 
-    },
-    Search: {
-        screen: SearchScreen,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: 'Search',
-        }),
-    },
-    Map: {
-        screen: Map,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: 'Map',
-        }),
-    },
-    Notification: {
-        screen: NotificationScreen,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: 'Notifications',
-        }),
-    },
-    Bookmark: {
-        screen: BookmarkScreen,
-        navigationOptions: ({ navigation }) => ({
-            headerTitle: 'Bookmark',
-        }),
-    }
-},
-{
-    navigationOptions: ({ navigation }) => ({
+class RouterComponent extends Component { 
+    getTabIcon = (focused) => {
+        console.log(focused.route.focused);
         
-        tabBarIcon: ({ focused }) => {
-            const { routeName } = navigation.state;
-            let iconName;
-            if (routeName === 'Home') {
-                iconName = `ios-home${focused ? '' : '-outline'}`;
-            } else if (routeName === 'Search') {
-                iconName = `ios-search${focused ? '' : '-outline'}`;
-            } else if (routeName === 'Notification') {
-                iconName = `ios-notifications${focused ? '' : '-outline'}`;
-            } else if (routeName === 'Bookmark') {
-                iconName = `ios-bookmark${focused ? '' : '-outline'}`;
-            } else if (routeName === 'Map') {
-                iconName = `ios-pin${focused ? '' : '-outline'}`;
-            }
-            
-            return <Icon name={iconName} size={25} color={color.themeColor} />;
-        },
-        headerLeft: (
-            <TouchableOpacity 
-                style={{marginLeft :20}}
-                onPress={() => navigation.navigate('DrawerToggle')}  >
-                <Icon 
-                    name = 'md-menu'
-                    size = {30}
-                    color = {color.themeColor}
-                />
-            </TouchableOpacity>
-        ),
-        headerTitleStyle: {
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginLeft :'35%'
-        },
-       
-    }),
-    tabBarOptions: {
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-    },
-    tabBarComponent: TabBarBottom,
-    tabBarPosition: 'bottom',
-    animationEnabled: false,
-    swipeEnabled: false,
-});
-
-const DrawerScene = DrawerNavigator({
-    Stacks : { screen: tabScreen },
-})  
-
-export default StackNavigator({
-    Auth: {
-        screen: Auth,
-        navigationOptions: {
-            header: null,
+        const routeName = focused.route.key;
+        
+        let iconName;
+        if (routeName === 'Home') {
+            iconName = `ios-home${focused.route.focused ? '' : '-outline'}`;
+        } else if (routeName === 'Search') {
+            iconName = `ios-search${focused.route.focused ? '' : '-outline'}`;
+        } else if (routeName === 'Notification') {
+            iconName = `ios-notifications${focused.route.focused ? '' : '-outline'}`;
+        } else if (routeName === 'Bookmark') {
+            iconName = `ios-bookmark${focused.route.focused ? '' : '-outline'}`;
+        } else if (routeName === 'Map') {
+            iconName = `ios-pin${focused.route.focused ? '' : '-outline'}`;
         }
-    }, 
-    Details: {
-        screen: Details,
-        navigationOptions: {
-            title: ''
-        }
-    },
-    Drawer: { 
-        screen: DrawerScene ,
-    },
-  
-});
 
+        return <Icon name={iconName} size={25} color={color.themeColor} />;
+    }
+
+    render() {
+        return (
+            <Router navigationBarStyle={{ backgroundColor: '#fff' }}
+
+                titleStyle={{ color: color.themeColor, alignSelf: 'center' }}
+            >
+                <Stack key="root" hideNavBar={true}>
+                    <Stack key="first" >
+                        <Scene
+                            key='initial_screen'
+                            hideNavBar={true}
+                            component={Auth}
+
+                        />
+                    </Stack>
+                    <Scene key="lightbox" lightbox >
+                        <Scene key="drawer" drawer contentComponent={DrawerScreen}>
+                            <Scene 
+                                key="tabbar"
+                                showLabel={true} activeBackgroundColor='#fff'
+                                activeTintColor={color.themeColor} tabs={true}
+                                tabBarPosition={'bottom'}
+                            >
+                                <Scene
+                                    key="Home"
+                                    tabBarLabel={({ focused }) => this.getTabIcon}
+                                    component={HomeScreen}
+                                    title="Home"
+                                />
+                                <Scene
+                                    key="Search"
+                                    tabBarLabel={({ focused }) => this.getTabIcon}
+                                    component={SearchScreen}
+                                    title="Search"
+                                />
+                                <Scene
+                                    key="Map"
+                                    tabBarLabel={({ focused }) => this.getTabIcon}
+                                    component={Map}
+                                    title="Map"
+                                />
+                                <Scene
+                                    key="Notification"
+                                    tabBarLabel={({ focused }) => this.getTabIcon}
+                                    component={NotificationScreen}
+                                    title="Notification"
+                                />
+                                <Scene
+                                    key="Bookmark"
+                                    tabBarLabel={({ focused }) => this.getTabIcon}
+                                    component={BookmarkScreen}
+                                    title="Bookmark"
+                                />
+                            </Scene>
+                        </Scene>
+                    </Scene>
+                </Stack>
+            </Router>
+        );
+    }
+}
+
+
+export default RouterComponent;

@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { View, Text, Dimensions, StyleSheet, TextInput } from 'react-native';
 import MapView, { Marker} from 'react-native-maps';
 import color from '../assets/colors';
+import {connect} from 'react-redux';
 
+
+import { getUsersLocation} from '../store/actions';
 
 
 const API_KEY = 'AIzaSyCc4aVWLkCZyvh8ERdTuVg0UgPfeux2kz4'; 
@@ -20,36 +23,18 @@ class Map extends Component {
         restaurant : null
     }
     componentDidMount() {
-        this.getUsersLocation();
-        if (this.state.focusedLocation) {
-            this.getRestaurent();
-        }
+
+        this.props.getUserCor();
+        console.log(this.props.auth);
+        
+        // this.getUsersLocation();
+        // if (this.state.focusedLocation) {
+        //     this.getRestaurent();
+        // }
     }
-    getUsersLocation = () => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                console.log(position);
-                
-              this.setState({
-                  focusedLocation : {
-                      latitude: position.coords.latitude,
-                      longitude: position.coords.longitude,
-                      latitudeDelta: 0.0922,
-                      longitudeDelta: 0.0421,
-                  }
-              });
-            },
-            (error) => console.log(error.message)
-            
-        );
-    }
-
-
-
     getRestaurent = () => {
-        console.log('ex');
-      
-        let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+this.state.focusedLocation.latitude+','+this.state.focusedLocation.longitude+'&radius=50000&type=restaurant&key=AIzaSyCc4aVWLkCZyvh8ERdTuVg0UgPfeux2kz4';
+    
+        let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+this.state.focusedLocation.latitude+','+this.state.focusedLocation.longitude+'&radius=500&type=restaurant&key=AIzaSyCc4aVWLkCZyvh8ERdTuVg0UgPfeux2kz4';
         fetch(url)
             .then(response => {
                 if (response) {
@@ -91,15 +76,11 @@ class Map extends Component {
 
         return (
             <View style={{flex:1}}>
-                <View style={{position: 'absolute', top : 10, height: 200, zIndex: 1, width: '100%'}}>
-                   <TextInput 
-                    placeholder= 'Search here !!'
-                   />
-                </View>
                 <MapView 
                     initialRegion={this.state.focusedLocation}
                     style={styles.map}
-                    
+                    zoomEnabled={true}
+                    minZoomLevel ={0}
                 >
                     {markers.map((marker, i) => (
                         <Marker 
@@ -132,4 +113,18 @@ const styles =  StyleSheet.create({
        height: '100%'
     },
 });
-export default Map;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getUserCor:  () => dispatch(getUsersLocation)
+    };
+};
+
+const mapStateToProps = (state) => {
+    return {
+        auth : state.auth
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map);

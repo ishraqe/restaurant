@@ -1,13 +1,25 @@
 import React, {Component} from 'react';
 import { View, Text } from "react-native";
-import StackNavigator from './config/router';
+import Router from './config/router';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+
+import ReduxThunk from 'redux-thunk';
+import Reducers from './store/reducers/index';
+
+
+
 
 class App extends Component {
     render () {
+        const store = createStore(Reducers, {}, applyMiddleware(ReduxThunk))
+        
         return (
-            <View style={{width: '100%', height: '100%'}}>
-                <StackNavigator />
-            </View>
+            <Provider store={store}>
+                <View style={{width: '100%', height: '100%'}}>
+                    <Router />
+                </View>
+            </Provider>
         );
     }
 }

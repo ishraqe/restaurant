@@ -4,6 +4,7 @@ import color from '../assets/colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Video from "react-native-video";
 import bgVideo from '../assets/bg.mov';
+import {Actions} from 'react-native-router-flux';
 
 
 
@@ -25,7 +26,7 @@ class Auth extends Component {
                     />
                 
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Home')}
+                        onPress={() => Actions.lightbox()}
                         style={[styles.button, {marginTop: 100}]}
                     >
                         <View style={styles.buttonWrapper}>

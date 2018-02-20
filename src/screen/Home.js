@@ -4,11 +4,24 @@ import color from "../assets/colors";
 import { BoxShadow } from 'react-native-shadow';
 import ListComponent from '../component/Home/ListComponent'
 
-class Home  extends Component {
+import { connect } from 'react-redux';
+import { getUsersLocation } from '../store/actions';
 
+
+
+class Home  extends Component {
+    componentWillMount () {
+        console.log('hello');
+        
+        
+    }
+    componentDidMount() {
+        console.log('hello');
+
+       
+    }
     render () {
         return (
-          
                 <View style={styles.container}>
                     <View style={styles.iconContainer}>
                         <BoxShadow setting={color.shadowOpt}>
@@ -102,4 +115,12 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Home;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        log_user_in: () => dispatch(getUsersLocation())
+    };
+};
+
+
+export default connect(null, mapDispatchToProps)(Home);

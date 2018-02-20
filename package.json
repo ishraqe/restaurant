@@ -11,7 +11,6 @@
     "lodash": "^4.17.5",
     "react": "16.2.0",
     "react-native": "0.53.0",
-    "react-native-elements": "^0.19.0",
     "react-native-google-places": "^2.4.2",
     "react-native-maps": "^0.20.1",
     "react-native-router-flux": "^4.0.0-beta.28",
@@ -21,7 +20,9 @@
     "react-native-svg": "^6.1.4",
     "react-native-vector-icons": "^4.5.0",
     "react-native-video": "^2.0.0",
-    "react-navigation": "^1.0.3"
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-jest": "22.2.2",
