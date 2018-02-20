@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import color from '../assets/colors';
 import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
@@ -14,34 +14,44 @@ import DrawerScreen from '../screen/DrawerScreen';
 import Map from '../screen/Map';
 import Details from '../screen/Details';
 import Tab from '../component/Details/Tab'
-
+import Test from '../screen/Test'
 
 class RouterComponent extends Component { 
+
     getTabIcon = (focused) => {
-        console.log(focused.route.focused);
-        
-        const routeName = focused.route.key;
+        let focusedRoute = focused.focused;
+        let routeName = focused.route.key;
         
         let iconName;
+        let label;
         if (routeName === 'Home') {
-            iconName = `ios-home${focused.route.focused ? '' : '-outline'}`;
+            iconName = `ios-home${focusedRoute ? '' : '-outline'}`;
+            label = routeName;
         } else if (routeName === 'Search') {
-            iconName = `ios-search${focused.route.focused ? '' : '-outline'}`;
+            label = routeName;
+            iconName = `ios-search${focusedRoute ? '' : '-outline'}`;
         } else if (routeName === 'Notification') {
-            iconName = `ios-notifications${focused.route.focused ? '' : '-outline'}`;
+            iconName = `ios-notifications${focusedRoute ? '' : '-outline'}`;
+            label = routeName;
         } else if (routeName === 'Bookmark') {
-            iconName = `ios-bookmark${focused.route.focused ? '' : '-outline'}`;
+            iconName = `ios-bookmark${focusedRoute? '' : '-outline'}`;
+            label = routeName;
         } else if (routeName === 'Map') {
-            iconName = `ios-pin${focused.route.focused ? '' : '-outline'}`;
+            iconName = `ios-pin${focusedRoute? '' : '-outline'}`;
+            label = routeName;
         }
 
-        return <Icon name={iconName} size={25} color={color.themeColor} />;
+        return (
+            <View style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                <Icon name={iconName} size={25} color={color.themeColor} />
+                <Text>{label}</Text>
+            </View>
+        );
     }
 
     render() {
         return (
             <Router navigationBarStyle={{ backgroundColor: '#fff' }}
-
                 titleStyle={{ color: color.themeColor, alignSelf: 'center' }}
             >
                 <Stack key="root" hideNavBar={true}>
@@ -54,45 +64,50 @@ class RouterComponent extends Component {
                         />
                     </Stack>
                     <Scene key="lightbox" lightbox >
-                        <Scene key="drawer" drawer contentComponent={DrawerScreen}>
+                        <Scene key="drawer" initial drawer contentComponent={DrawerScreen}>
                             <Scene 
                                 key="tabbar"
-                                showLabel={true} activeBackgroundColor='#fff'
-                                activeTintColor={color.themeColor} tabs={true}
+                                showLabel={true} 
+                                activeTintColor={color.themeColor} 
+                                tabs={true}
                                 tabBarPosition={'bottom'}
+                                tabBarLabel={({ focused }) => this.getTabIcon}
+                              
                             >
                                 <Scene
                                     key="Home"
-                                    tabBarLabel={({ focused }) => this.getTabIcon}
                                     component={HomeScreen}
                                     title="Home"
                                 />
                                 <Scene
                                     key="Search"
-                                    tabBarLabel={({ focused }) => this.getTabIcon}
                                     component={SearchScreen}
-                                    title="Search"
+                                    title = 'Search'
                                 />
                                 <Scene
                                     key="Map"
-                                    tabBarLabel={({ focused }) => this.getTabIcon}
                                     component={Map}
                                     title="Map"
                                 />
                                 <Scene
                                     key="Notification"
-                                    tabBarLabel={({ focused }) => this.getTabIcon}
                                     component={NotificationScreen}
                                     title="Notification"
                                 />
                                 <Scene
                                     key="Bookmark"
-                                    tabBarLabel={({ focused }) => this.getTabIcon}
                                     component={BookmarkScreen}
                                     title="Bookmark"
                                 />
                             </Scene>
                         </Scene>
+                    </Scene>
+                    <Scene key='main'>
+                        <Scene
+                            key='Details'
+                            component={Details}
+                            title='Details'
+                        />
                     </Scene>
                 </Stack>
             </Router>

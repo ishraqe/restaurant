@@ -21,17 +21,22 @@ import React from "react";
 // }
 
 export const getUsersLocation = () => {
+    console.log('in');
+    
     return (dispatch) => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                console.log(position);   
-               let focusedLocation = {
+               const focusedLocation = {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 };
-                dispatch({ type: GET_COORDINATES  , payload: focusedLocation })
+                console.log(focusedLocation);
+                dispatch({ 
+                    type: GET_COORDINATES,
+                    payload: focusedLocation 
+                })
             },
             (error) => console.log(error.message)
         );

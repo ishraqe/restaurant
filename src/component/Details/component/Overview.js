@@ -10,6 +10,7 @@ import { sliderWidth, itemWidth } from '../SliderStyle';
 import styles, { colors } from '../index';
 import { scrollInterpolators, animatedStyles } from '../animations';
 import color from '../../../assets/colors';
+import { Actions } from 'react-native-router-flux';
 
 
 const IS_ANDROID = Platform.OS === 'android';
@@ -32,6 +33,10 @@ class OverView extends Component {
             />
         );
     }
+    componentWillMount() {
+        Actions.refresh({ title: 'Overview' })
+    }
+
     mainExample(number) {
         const { slider1ActiveSlide } = this.state;
 

@@ -14,14 +14,16 @@ import color from '../../assets/colors';
 export default () => {
     return <ScrollableTabView
         initialPage={0}
-        renderTabBar={() => <DefaultTabBar />}
+        renderTabBar={() => 
+            <DefaultTabBar />
+        }
         tabBarPosition = 'bottom'
-        style= {{backgroundColor: '#fff'}}
+        style= {{flex:1, backgroundColor: '#fff'}}
         tabBarActiveTextColor={color.themeColor}
         tabBarUnderlineStyle = {{backgroundColor: color.themeColor}}
     >
        
-        <OverView tabLabel='Overview'/>
+        <OverView tabLabel='Overview' title= 'Over'/>
         <Menu tabLabel='Menu' />
         <Review tabLabel='Review' />
     </ScrollableTabView>;

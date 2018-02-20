@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, FlatList, } from 'react-native';
 import color from "../../../assets/colors";
 import ReviewList from './ReviewList';
+import { Actions } from 'react-native-router-flux';
 
 class Review extends Component {
+    componentWillMount() {
+        Actions.refresh({ title: 'Review' })
+    }
     render() {
         return (
             <View style={styles.container}>

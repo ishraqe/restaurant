@@ -3,10 +3,14 @@ import { View, Text, StyleSheet, FlatList,} from 'react-native';
 import color from "../../../assets/colors";
 import Icon from 'react-native-vector-icons/Ionicons';
 import MenuList from './MenuList';
+import { Actions } from 'react-native-router-flux';
+
 
 class Menu extends Component {
     
-
+    componentWillMount() {
+        Actions.refresh({ title: 'Menu' })
+    }
 
 
     render() {

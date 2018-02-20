@@ -3,16 +3,20 @@ import { View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
 import { Card, CardSection } from "../common/index";
 import color from '../../assets/colors';
 import { withNavigation } from 'react-navigation'
-
+import {Actions} from 'react-native-router-flux';
 
 
 const ListComponent  = (props) => {
+
+    onRowPress = () => {
+        Actions.push('main');
+    }
 
     return (
             <View style={{marginTop: 20, width: '100%', paddingLeft: 10, paddingRight: 10, borderRadius: 5}}>
                 <TouchableOpacity
                     style={{ width: '100%' }}
-                onPress={() => props.navigation.navigate('Details')}
+                onPress={this.onRowPress}
                 >
                         <CardSection>
                             <View style={styles.imageCover}>

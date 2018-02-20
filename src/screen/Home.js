@@ -7,20 +7,28 @@ import ListComponent from '../component/Home/ListComponent'
 import { connect } from 'react-redux';
 import { getUsersLocation } from '../store/actions';
 
+import RNGooglePlaces from 'react-native-google-places';
 
 
 class Home  extends Component {
-    componentWillMount () {
-        console.log('hello');
-        
-        
-    }
-    componentDidMount() {
-        console.log('hello');
 
-       
+    state = {
+        userLatLong:  null
     }
+
+    componentWillMount () {
+       
+        this.props.get_user_latlng();
+    }
+    componentWillReceiveProps(next) {
+        this.setState({
+            userLatLong: next.auth.userLatLong
+        });
+    }
+
     render () {
+        console.log(this.state.userLatLong);
+        
         return (
                 <View style={styles.container}>
                     <View style={styles.iconContainer}>
@@ -115,12 +123,19 @@ const styles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = ({auth}) => {
+    
+    return {
+        auth
+    }
+}
+
 
 const mapDispatchToProps = dispatch => {
     return {
-        log_user_in: () => dispatch(getUsersLocation())
+        get_user_latlng: () => dispatch(getUsersLocation())
     };
 };
 
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,5 +1,4 @@
 import {
-    LOGIN_USER,
     GET_COORDINATES
 } from "../actions/types";
 
@@ -13,6 +12,7 @@ export default (state = INITIAL_STATE, actions) => {
         case GET_COORDINATES:
             console.log(actions);
             return { ...state, userLatLong: actions.payload };
+            break;
         default:
             return state;
     }
