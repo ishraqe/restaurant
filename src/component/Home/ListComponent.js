@@ -4,13 +4,17 @@ import { Card, CardSection } from "../common/index";
 import color from '../../assets/colors';
 import { withNavigation } from 'react-navigation'
 import {Actions} from 'react-native-router-flux';
+import {getDistanceFromLatLonInKm} from '../util'
 
 
 const ListComponent  = (props) => {
-
+    
+    const { name, opening_hours, rating, geometry, vicinity, types} = props.item;
+    const { latitude, longitude } = props.geoLocation;
     onRowPress = () => {
         Actions.push('main');
     }
+
 
     return (
             <View style={{marginTop: 20, width: '100%', paddingLeft: 10, paddingRight: 10, borderRadius: 5}}>
@@ -22,24 +26,24 @@ const ListComponent  = (props) => {
                             <View style={styles.imageCover}>
                                 <Image
                                     style={styles.image}
-                                    source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLxmBuSqBLEVe6FZkt8CK7GxewFiDHOihhgod4ncC8H0hPVV6w'}}
+                            source={{ uri: 'https://www.bostonsausage.co.uk/wp-content/uploads/2013/11/Rump-Steak-Meal-Deal.jpg'}}
                                 />
                                 <View style={styles.rate}>
-                                    <Text style={styles.rateText}>9.2</Text>
+                                    <Text style={styles.rateText}>{rating > 0 ? rating: 0}</Text>
                                 </View>
                             </View>
                             <View style={styles.descContainer}>
-                                <Text style={styles.title}>Sublimotion</Text>
+                                <Text style={styles.title}>{name}</Text>
                                 <View style={styles.typeStyle}>
-                                    <Text style={styles.type}>Restaurant</Text>
+                                    <Text style={styles.type}>{types[0]}</Text>
                                     <Text style={styles.tag}>$$$$$</Text>                        
                                 </View>
                                 <View style={styles.infoContainer}>
-                                    <Text style={styles.status}>Open now</Text>
+                            <Text style={opening_hours.open_now ? styles.status : [styles.status, {color:'red'}]}>{opening_hours.open_now ? 'Open now' : 'Closed'}</Text>
                                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>.</Text>                        
-                                    <Text style={styles.loca}>40 Kilo from you</Text>
+                            <Text style={styles.loca}>{getDistanceFromLatLonInKm(latitude, longitude, geometry.location.lat, geometry.location.lng )} from you</Text>
                                     <Text style={{ fontSize: 20, fontWeight: 'bold', }}>.</Text>                        
-                                    <Text style={styles.loca}>Hanoi, Vietnam</Text>
+                            <Text style={styles.loca}>{vicinity.substring(0, 7)}...</Text>
                                 </View>
                             </View>
                         </CardSection>
@@ -108,7 +112,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center', 
         alignItems: 'center',
         bottom: -30,
-        right: 20
+        right: 20,
+        opacity: 0.9
     },
     rateText : {
         fontSize: 20,

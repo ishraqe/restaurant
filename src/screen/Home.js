@@ -5,7 +5,7 @@ import { BoxShadow } from 'react-native-shadow';
 import ListComponent from '../component/Home/ListComponent'
 
 import { connect } from 'react-redux';
-import { getUsersLocation } from '../store/actions';
+import { getUsersLocation, getRestaurant } from '../store/actions';
 
 import RNGooglePlaces from 'react-native-google-places';
 
@@ -13,22 +13,24 @@ import RNGooglePlaces from 'react-native-google-places';
 class Home  extends Component {
 
     state = {
-        userLatLong:  null
+        userLatLong:  null,
+        restaurant: null
     }
 
     componentWillMount () {
-       
         this.props.get_user_latlng();
     }
     componentWillReceiveProps(next) {
+        console.log(next);
         this.setState({
-            userLatLong: next.auth.userLatLong
+            userLatLong: next.auth.userLatLong,
+            restaurant: next.auth.restaurants
         });
     }
+    _keyExtractor = (item, index) => item.id;
 
     render () {
         console.log(this.state.userLatLong);
-        
         return (
                 <View style={styles.container}>
                     <View style={styles.iconContainer}>
@@ -77,10 +79,12 @@ class Home  extends Component {
                     </View>
                     <View style={styles.listContainer}>
                         <FlatList
-                            data={[{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'd' }, { key: 'e' }, { key: 'f' }, { key: 'g' }, { key: 'h' }, { key: 'i' }, { key: 'j' }, { key: 'k' }, { key: 'l' }, { key: 'm' }, { key: 'n' }, { key: 'o' }, { key: 'p' }, { key: 'q' }, { key: 'r' }, { key: 's' }, { key: 't' }, { key: 'u' }, { key: 'v' }, { key: 'w' }, { key: 'x' }, { key: 'y' }, { key: 'z' }, { key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' }, { key: '7' }, { key: '8' }, { key: '9' }, { key: '10' }, { key: '11' }, { key: '12' }, { key: '13' }, { key: '14' }, { key: '15' }, { key: '16' }]}
+                            data={this.state.restaurant}
+                            keyExtractor={this._keyExtractor}
                             renderItem={({ item }) => (
                                 <ListComponent
                                     item={item}
+                                    geoLocation={this.state.userLatLong}
                                 />
                             )}
                         />
@@ -120,20 +124,22 @@ const styles = StyleSheet.create({
     listContainer : {
         
         width: '100%',
+        marginBottom: 50
     }
 });
 
-const mapStateToProps = ({auth}) => {
-    
+const mapStateToProps = ({ auth, restaurants}) => {
     return {
-        auth
+        auth,
+        restaurants
     }
 }
 
 
 const mapDispatchToProps = dispatch => {
     return {
-        get_user_latlng: () => dispatch(getUsersLocation())
+        get_user_latlng: () => dispatch(getUsersLocation()),
+        get_restaurant: ({ lat, lon }) => dispatch(getRestaurant({lat, lon})) 
     };
 };
 

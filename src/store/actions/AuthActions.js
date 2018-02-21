@@ -1,27 +1,11 @@
 import {
-    GET_COORDINATES 
+    GET_COORDINATES ,
+    GET_RESTAURANTS
 } from "./types";
 import React from "react";
 
 
-// export const signUpUser = ({ fullname, email, password }) => {
-//     return (dispatch) => {
-//         firebase.auth().createUserWithEmailAndPassword(email, password)
-//             .then((user) => {
-//                 const uid = user.uid;
-//                 firebase.database().ref('userInfo/' + uid).set({
-//                     fullname: fullname,
-//                     profileImage: 'http://servotech.in/wp-content/uploads/2016/10/user-icon-placeholder.png'
-//                 }).then(
-//                     (userInfo) => signupUserSuccess(dispatch, userInfo, user, { email, password })
-//                 )
-//             })
-//             .catch(() => signupUserfail(dispatch));
-//     }
-// }
-
 export const getUsersLocation = () => {
-    console.log('in');
     
     return (dispatch) => {
         navigator.geolocation.getCurrentPosition(
@@ -32,13 +16,36 @@ export const getUsersLocation = () => {
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 };
-                console.log(focusedLocation);
-                dispatch({ 
-                    type: GET_COORDINATES,
-                    payload: focusedLocation 
-                })
+                let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' +focusedLocation.latitude + ',' + focusedLocation.longitude + '&radius=500&type=restaurant&key=AIzaSyCc4aVWLkCZyvh8ERdTuVg0UgPfeux2kz4';
+                fetch(url)
+                    .then(response => {
+                        if (response) {
+                            console.log('hello');
+
+                            return response.json();
+                        } else {
+                            throw new Error('Something went wrong ...');
+                        }
+                    })
+                    .then(data => {
+                        const userAndRes = {
+                            data, focusedLocation
+                        }
+                        dispatch({ type: GET_RESTAURANTS, payload: userAndRes })
+                    })
+                    .catch(error => console.log(error))   
+                // dispatch({ 
+                //     type: GET_COORDINATES,
+                //     payload: focusedLocation 
+                // })
             },
-            (error) => console.log(error.message)
+            (error) => console.log(error),
+            {
+                enableHighAccuracy: false,
+                timeout: 5000,
+                maximumAge: 10000
+            }
+
         );
     }
     
