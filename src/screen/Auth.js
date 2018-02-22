@@ -32,15 +32,44 @@ class Auth extends Component {
                 if (result.isCancelled) {
                     console.log('Login cancelled');
                 } else {
+                    
                     AccessToken.getCurrentAccessToken().then(
                         (data) => {
+                            let accessToken = data.accessToken
+
+                            const responseInfoCallback = (error, result) => {
+                                if (error) {
+                                    console.log('Error fetching data: ' + error.toString());
+                                } else {
+                                    console.log(result);
+                                    
+                                    console.log('Success fetching data: ' + result.toString());
+                                }
+                            }
+
                             const infoRequest = new GraphRequest(
-                                '/me?fields=name,picture',
-                                null,
-                                this._responseInfoCallback
+                                '/me',
+                                {
+                                    accessToken: accessToken,
+                                    parameters: {
+                                        fields: {
+                                            string: 
+ 'email,name,first_name,middle_name,last_name, cover ,age_range,link,gender,locale,picture,timezone,updated_time,verified',
+                                        }
+                                    }
+                                },
+                                responseInfoCallback
                             );
+
                             // Start the graph request.
-                            new GraphRequestManager().addRequest(infoRequest).start();
+                            new GraphRequestManager().addRequest(infoRequest).start()
+                            // const infoRequest = new GraphRequest(
+                            //     '/me?fields=name,picture',
+                            //     null,
+                            //     this._responseInfoCallback
+                            // );
+                            // // Start the graph request.
+                            // new GraphRequestManager().addRequest(infoRequest).start();
                             
                         }
                     )
