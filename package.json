@@ -11,6 +11,7 @@
     "lodash": "^4.17.5",
     "react": "16.2.0",
     "react-native": "0.53.0",
+    "react-native-fbsdk": "^0.7.0",
     "react-native-google-places": "^2.4.2",
     "react-native-maps": "^0.20.1",
     "react-native-router-flux": "^4.0.0-beta.28",

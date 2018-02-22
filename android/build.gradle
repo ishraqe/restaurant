@@ -16,6 +16,14 @@ allprojects {
     repositories {
         mavenLocal()
         jcenter()
+        configurations.all {
+            resolutionStrategy {
+               force 'com.facebook.android:facebook-android-sdk:4.28.0'
+            }
+        } 
+        maven {
+            url "https://maven.google.com"
+        }
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"

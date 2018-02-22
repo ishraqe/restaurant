@@ -5,11 +5,56 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Video from "react-native-video";
 import bgVideo from '../assets/bg.mov';
 import {Actions} from 'react-native-router-flux';
+const FBSDK = require('react-native-fbsdk');
+const {
+    LoginManager,
+    AccessToken, GraphRequest, GraphRequestManager
+} = FBSDK;
 
 
 
 class Auth extends Component {
-  
+       
+    _responseInfoCallback = (error, result) => {
+        if (error) {
+            console.log('Error fetching data: ' + error.toString());
+        } else {
+            console.log('Result Name: ' + result.name);
+        }
+    }
+    
+
+    _fbAuth=() => {
+       
+        var that = this;
+        LoginManager.logInWithReadPermissions(['public_profile']).then(
+            function (result) {
+                if (result.isCancelled) {
+                    console.log('Login cancelled');
+                } else {
+                    AccessToken.getCurrentAccessToken().then(
+                        (data) => {
+                            const infoRequest = new GraphRequest(
+                                '/me?fields=name,picture',
+                                null,
+                                this._responseInfoCallback
+                            );
+                            // Start the graph request.
+                            new GraphRequestManager().addRequest(infoRequest).start();
+                            
+                        }
+                    )
+                }  
+            },
+            function (error) {
+                console.log('Login fail with error: ' + error);
+            }
+        );
+    }
+
+    
+
+
     render() {
         return (
             <View style={styles.container}>
@@ -40,6 +85,7 @@ class Auth extends Component {
 
                     <TouchableOpacity
                         style={[styles.button, {backgroundColor: '#3b5998'}]}
+                        onPress={this._fbAuth}
                 >
                         <View style={styles.buttonWrapper}>
                            <Icon
@@ -48,7 +94,8 @@ class Auth extends Component {
                                 size={30}
                                 style={{ marginRight: 10}}
                            />
-                            <Text style={{ color: '#fff' }}>Continue with Google</Text>
+                            <Text style={{ color: '#fff' }}>Continue with Facebook</Text>
+                           
                         </View>
                     </TouchableOpacity>
                     
