@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "693614564118",
+    "project_id": "firebase-kahana"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693614564118:android:473295195c262fc5",
+        "android_client_info": {
+          "package_name": "com.restaurent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693614564118-u763pm4tvfnjjklpata26207ldrjlnh7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.restaurent",
+            "certificate_hash": "18569b4e5271848d1dd22dcdb438624937ab8952"
+          }
+        },
+        {
+          "client_id": "693614564118-ej8ukdngmkgvodgmalsa7ik2kj8hq1ho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf_5tu2g_CqZlZP8EAhmxdfzS_vAB4RwU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,6 +17,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.horcrux.svg.SvgPackage;
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +46,8 @@ public class MainApplication extends Application implements ReactApplication {
           new SvgPackage(),
           new MapsPackage(),
           new RNGooglePlacesPackage(),
-          new FBSDKPackage(mCallbackManager)
+          new FBSDKPackage(mCallbackManager), 
+          new RNGoogleSigninPackage()
       );
     }
 

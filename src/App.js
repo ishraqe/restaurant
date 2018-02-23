@@ -25,3 +25,5 @@ class App extends Component {
 }
 
 export default App;
+
+//for metro blunder error rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json

@@ -6,21 +6,22 @@ import Video from "react-native-video";
 import bgVideo from '../assets/bg.mov';
 import {Actions} from 'react-native-router-flux';
 const FBSDK = require('react-native-fbsdk');
-const {
-    LoginManager,
-    AccessToken, GraphRequest, GraphRequestManager
-} = FBSDK;
+const { LoginManager,AccessToken, GraphRequest, GraphRequestManager } = FBSDK;
 
-
+import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 
 class Auth extends Component {
        
-    _responseInfoCallback = (error, result) => {
-        if (error) {
-            console.log('Error fetching data: ' + error.toString());
-        } else {
-            console.log('Result Name: ' + result.name);
-        }
+    _googleSignIn = () => {
+        GoogleSignin.signIn()
+            .then((user) => {
+                console.log(user);
+            })
+            .catch((err) => {
+                console.log('WRONG SIGNIN', err);
+            })
+            .done();
+        
     }
     
 
@@ -54,23 +55,13 @@ class Auth extends Component {
                                     parameters: {
                                         fields: {
                                             string: 
- 'email,name,first_name,middle_name,last_name, cover ,age_range,link,gender,locale,picture,timezone,updated_time,verified',
+                                                'email,name,first_name,middle_name,last_name, cover ,age_range,link,gender,locale,picture,timezone,updated_time,verified',
                                         }
                                     }
                                 },
                                 responseInfoCallback
                             );
-
-                            // Start the graph request.
-                            new GraphRequestManager().addRequest(infoRequest).start()
-                            // const infoRequest = new GraphRequest(
-                            //     '/me?fields=name,picture',
-                            //     null,
-                            //     this._responseInfoCallback
-                            // );
-                            // // Start the graph request.
-                            // new GraphRequestManager().addRequest(infoRequest).start();
-                            
+                            new GraphRequestManager().addRequest(infoRequest).start() 
                         }
                     )
                 }  
@@ -80,6 +71,7 @@ class Auth extends Component {
             }
         );
     }
+
 
     
 
@@ -100,7 +92,7 @@ class Auth extends Component {
                     />
                 
                     <TouchableOpacity
-                        onPress={() => Actions.lightbox()}
+                        onPress={()=>this._googleSignIn()}
                         style={[styles.button, {marginTop: 100}]}
                     >
                         <View style={styles.buttonWrapper}>
@@ -111,6 +103,7 @@ class Auth extends Component {
                             <Text style={{color: '#000'}}>Continue with Google</Text>
                         </View>
                     </TouchableOpacity>
+                
 
                     <TouchableOpacity
                         style={[styles.button, {backgroundColor: '#3b5998'}]}
