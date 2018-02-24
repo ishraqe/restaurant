@@ -30,7 +30,11 @@ export const _fbAuth = () => {
                                     console.log('Error fetching data: ' + error.toString());
                                 } else {
                                     console.log(result);
-                                    dispatch({type: FB_AUTH, payload: result});
+                                    const userInfo = { ...result, type: 'fb' }
+                                    dispatch({ type: FB_AUTH, payload: userInfo});
+                                    console.log(userInfo);
+                                    AsyncStorage.setItem('as:auth:user', JSON.stringify(userInfo));
+                                    Actions.lightbox(); 
                                 }
                             }
 
@@ -68,15 +72,11 @@ export const _googleAuth = () => {
             .then(() => {
                 GoogleSignin.signIn()
                 .then((user) => {
-                    
-                    console.log(user);
-                   const userInfo = {...user, type: 'google' }
+                    const userInfo = {...user, type: 'google' }
                     dispatch({ type: GOOGLE_AUTH, payload: userInfo })
                     console.log(userInfo);                 
-                        AsyncStorage.setItem('as:auth:user', JSON.stringify(userInfo));
-                        Actions.lightbox();
-                      
-                   
+                    AsyncStorage.setItem('as:auth:user', JSON.stringify(userInfo));
+                    Actions.lightbox(); 
                 })
                 .catch((err) => {
                     console.log('WRONG SIGNIN', err);
