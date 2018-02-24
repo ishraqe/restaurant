@@ -100,7 +100,7 @@ export const getUsersLocation = () => {
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 };
-                let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' +focusedLocation.latitude + ',' + focusedLocation.longitude + '&radius=500&type=restaurant&key=AIzaSyCc4aVWLkCZyvh8ERdTuVg0UgPfeux2kz4';
+                let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + focusedLocation.latitude + ',' + focusedLocation.longitude + '&radius=500&type=restaurant&key=AIzaSyAwUyFikvyvgzx2Wp2bVc3Vt_hNm4AIggM';
                 fetch(url)
                     .then(response => {
                         if (response) {
