@@ -132,10 +132,9 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = ({ auth, restaurants}) => {
+const mapStateToProps = ({ auth}) => {
     return {
-        auth,
-        restaurants
+        auth
     }
 }
 

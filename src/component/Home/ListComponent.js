@@ -12,7 +12,7 @@ const ListComponent  = (props) => {
     const { name, opening_hours, rating, geometry, vicinity, types} = props.item;
     const { latitude, longitude } = props.geoLocation;
     onRowPress = () => {
-        Actions.push('main');
+        Actions.push('main', {item: props} );
     }
 
 
