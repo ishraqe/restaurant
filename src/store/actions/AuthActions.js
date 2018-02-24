@@ -4,7 +4,9 @@ import {
     GET_COORDINATES ,
     GET_RESTAURANTS
 } from "./types";
+
 import React from "react";
+import { AsyncStorage} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 const FBSDK = require('react-native-fbsdk');
 const { LoginManager, AccessToken, GraphRequest, GraphRequestManager } = FBSDK;
@@ -66,8 +68,15 @@ export const _googleAuth = () => {
             .then(() => {
                 GoogleSignin.signIn()
                 .then((user) => {
+                    
                     console.log(user);
-                    dispatch({ type: GOOGLE_AUTH, payload: user})
+                   const userInfo = {...user, type: 'google' }
+                    dispatch({ type: GOOGLE_AUTH, payload: userInfo })
+                    console.log(userInfo);                 
+                        AsyncStorage.setItem('as:auth:user', JSON.stringify(userInfo));
+                        Actions.lightbox();
+                      
+                   
                 })
                 .catch((err) => {
                     console.log('WRONG SIGNIN', err);
@@ -76,6 +85,8 @@ export const _googleAuth = () => {
             });
     }
 }
+
+
 
 
 export const getUsersLocation = () => {

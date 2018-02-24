@@ -27,6 +27,10 @@ class Home  extends Component {
             restaurant: next.auth.restaurants
         });
     }
+
+     
+    
+
     _keyExtractor = (item, index) => item.id;
 
     render () {
