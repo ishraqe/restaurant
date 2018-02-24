@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
     Text,View
 } from 'react-native';
@@ -11,20 +11,46 @@ import Review from './component/Review';
 import color from '../../assets/colors';
 
 
-export default () => {
-    return <ScrollableTabView
-        initialPage={0}
-        renderTabBar={() => 
-            <DefaultTabBar />
-        }
-        tabBarPosition = 'bottom'
-        style= {{flex:1, backgroundColor: '#fff'}}
-        tabBarActiveTextColor={color.themeColor}
-        tabBarUnderlineStyle = {{backgroundColor: color.themeColor}}
-    >
+class ScrollableTab extends Component {
+
+    state = {
+        reviews : null,
+        overview : null
+    }
+
+    componentWillReceiveProps (next) {
        
-        <OverView tabLabel='Overview' title= 'Over'/>
-        <Menu tabLabel='Menu' />
-        <Review tabLabel='Review' />
-    </ScrollableTabView>;
+        console.log(next.details, 'did mount');
+        setTimeout(() => {
+            if (next.details) {
+                this.setState({
+                    reviews: next.reviews,
+                    overview: next.details
+                })
+            }
+        }, 700);
+    }
+
+    render () {
+        console.log(this.state.overview, 'props found');
+        return (
+            <ScrollableTabView
+                initialPage={0}
+                renderTabBar={() =>
+                    <DefaultTabBar />
+                }
+                tabBarPosition='bottom'
+                style={{ flex: 1, backgroundColor: '#fff' }}
+                tabBarActiveTextColor={color.themeColor}
+                tabBarUnderlineStyle={{ backgroundColor: color.themeColor }}
+            >
+
+                <OverView overview={this.state.overview} tabLabel='Overview' title='Over' />
+                <Menu tabLabel='Menu' />
+                <Review reviews={this.state.reviews}  tabLabel='Review' />
+            </ScrollableTabView>
+        )
+    }
 }
+
+export default ScrollableTab;

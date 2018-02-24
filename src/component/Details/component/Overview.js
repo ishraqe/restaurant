@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Platform, View, ScrollView, Text, StatusBar, StyleSheet } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, StyleSheet, FlatList } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -11,7 +11,7 @@ import styles, { colors } from '../index';
 import { scrollInterpolators, animatedStyles } from '../animations';
 import color from '../../../assets/colors';
 import { Actions } from 'react-native-router-flux';
-
+import { getDistanceFromLatLonInKm } from '../../util';
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -20,7 +20,8 @@ class OverView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            slider1ActiveSlide: SLIDER_1_FIRST_ITEM
+            slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
+            overview: null,
         };
     }
     _renderItemWithParallax({ item, index }, parallaxProps) {
@@ -33,11 +34,18 @@ class OverView extends Component {
             />
         );
     }
-    componentWillMount() {
+    componentWillMount() {  
         Actions.refresh({ title: 'Overview' })
     }
+    
+    componentWillReceiveProps(next){
+        console.log(next.overview, 'over');
+        this.setState({
+            overview: next.overview
+        });
+    }
 
-    mainExample(number) {
+    mainExample(number, rating) {
         const { slider1ActiveSlide } = this.state;
 
         return (
@@ -63,73 +71,91 @@ class OverView extends Component {
                     onSnapToItem={(index) => this.setState({ slider1ActiveSlide: index })}
                 />
                 <View style={style.rate}>
-                    <Text style={style.rateText}>9.2</Text>
+                    <Text style={style.rateText}>{rating}</Text>
                 </View>
             </View>
         );
     }
+    renderRow({item}) {
+        return (
+            <View style={{ flexDirection: 'row' }}>
+                <Text>{'\u2022'}</Text>
+                <Text style={{  paddingLeft: 5 }}>{item}</Text>
+            </View>
+        );
+    }
+    renderOverView = () => {
+       if (this.state.overview) {
+          
+           const { name, rating, opening_hours, international_phone_number, geometry, formatted_address, types, user_latlng} = this.state.overview;
+           const distance = getDistanceFromLatLonInKm(user_latlng.latitude, user_latlng.longitude, geometry.location.lat, geometry.location.lng);
+           const example1 = this.mainExample(1, rating);
+           return (
+               <ScrollView
+                   style={{ flex: 1 }}
+               >
+                   <View style={{ flex: 1, }}>
+                       {example1}
+                       <View style={style.descContainer}>
+                           <Text style={style.title}>{name}</Text>
+                           <View style={style.typeStyle}>
+                               <Text style={style.type}>{types[0]}</Text>
+                           </View>
+                           <View style={style.infoContainer}>
+                               <Text style={style.status}>{opening_hours.open_now ? 'Open now' : 'closed'}</Text>
+                               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>.</Text>
+                               <Text style={style.loca}>{distance}</Text>
+                               <Text style={{ fontSize: 20, fontWeight: 'bold', }}>.</Text>
+                           </View>
+                           <FlatList
+                               data={types}
+                               renderItem={({ item }) => this.renderRow({item})}
+                           />
+                           <Text style={style.loca}>{formatted_address}</Text>
+                           <View style={style.action}>
+                               <View style={style.actionWrapper}>
+                                   <Icon
+                                       name={'ios-time-outline'}
+                                       size={30}
+                                   />
+                                   <Text>5AM-10AM</Text>
+                               </View>
+                               <View style={style.actionWrapper}>
+                                   <Icon
+                                       name={'ios-navigate-outline'}
+                                       size={30}
+                                   />
+                                   <Text>Direct</Text>
+                               </View>
+                               <View style={style.actionWrapper}>
+                                   <Icon
+                                       name={'ios-call-outline'}
+                                       size={30}
+                                   />
+                                   <Text>Call now</Text>
+                               </View>
+                               <View style={style.actionWrapper}>
+                                   <Icon
+                                       name={'ios-bookmark'}
+                                       size={30}
+                                   />
+                                   <Text>Bookmark</Text>
+                               </View>
+                           </View>
+                       </View>
+                   </View>
+               </ScrollView>
+           );
+       }
+       
+       
+    }
 
     render() {
-        const example1 = this.mainExample(1);
+        console.log(this.props.overview, 'last');
         return (
             <View style={{ flex: 1, backgroundColor: '#fff', }}>
-                <ScrollView
-                    style={{ flex: 1 }}
-
-                >
-                    <View style={{ flex: 1, }}>
-                        {example1}
-                        <View style={style.descContainer}>
-                            <Text style={style.title}>Sublimotion</Text>
-                            <View style={style.typeStyle}>
-                                <Text style={style.type}>Restaurant</Text>
-                                <Text style={style.tag}>$$$$$</Text>
-                            </View>
-                            <View style={style.infoContainer}>
-                                <Text style={style.status}>Open now</Text>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>.</Text>
-                                <Text style={style.loca}>40 Kilo from you</Text>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold', }}>.</Text>
-                                <Text style={style.loca}>Hanoi, Vietnam</Text>
-                            </View>
-                            <Text>
-                                lorem lorem lorem loremloremloremlorem lorem   lorem   lorem   lorem   lorem
-                                lorem lorem lorem loremloremloremlorem lorem   lorem   lorem   lorem   lorem
-                                lorem lorem lorem loremloremloremlorem lorem   lorem   lorem   lorem   lorem
-                            </Text>
-                            <View style={style.action}>
-                                <View style={style.actionWrapper}>
-                                    <Icon
-                                        name={'ios-time-outline'}
-                                        size={30}
-                                    />
-                                    <Text>5AM-10AM</Text>
-                                </View>
-                                <View style={style.actionWrapper}>
-                                    <Icon
-                                        name={'ios-navigate-outline'}
-                                        size={30}
-                                    />
-                                    <Text>Direct</Text>
-                                </View>
-                                <View style={style.actionWrapper}>
-                                    <Icon
-                                        name={'ios-call-outline'}
-                                        size={30}
-                                    />
-                                    <Text>Call now</Text>
-                                </View>
-                                <View style={style.actionWrapper}>
-                                    <Icon
-                                        name={'ios-bookmark'}
-                                        size={30}
-                                    />
-                                    <Text>Bookmark</Text>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                </ScrollView>
+                {this.renderOverView()}
             </View>
         );
     }

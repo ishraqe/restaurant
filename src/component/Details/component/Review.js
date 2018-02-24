@@ -6,7 +6,9 @@ import { Actions } from 'react-native-router-flux';
 
 class Review extends Component {
     componentWillMount() {
-        Actions.refresh({ title: 'Review' })
+        Actions.refresh({ title: 'Review' });
+        // console.log(this.props.reviews);
+        
     }
     render() {
         return (
