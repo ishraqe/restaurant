@@ -5,76 +5,27 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Video from "react-native-video";
 import bgVideo from '../assets/bg.mov';
 import {Actions} from 'react-native-router-flux';
-const FBSDK = require('react-native-fbsdk');
-const { LoginManager,AccessToken, GraphRequest, GraphRequestManager } = FBSDK;
+import {connect} from 'react-redux';
 
 import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
+import { _fbAuth, _googleAuth } from '../store/actions/index';
 
 class Auth extends Component {
-       
+    
+    
+    componentWillReceiveProps (next) {
+        console.log(next);   
+    }
+
+
     _googleSignIn = () => {
-        GoogleSignin.signIn()
-            .then((user) => {
-                console.log(user);
-            })
-            .catch((err) => {
-                console.log('WRONG SIGNIN', err);
-            })
-            .done();
-        
+        this.props.google_sign_in();
     }
     
 
-    _fbAuth=() => {
-       
-        var that = this;
-        LoginManager.logInWithReadPermissions(['public_profile']).then(
-            function (result) {
-                if (result.isCancelled) {
-                    console.log('Login cancelled');
-                } else {
-                    
-                    AccessToken.getCurrentAccessToken().then(
-                        (data) => {
-                            let accessToken = data.accessToken
-
-                            const responseInfoCallback = (error, result) => {
-                                if (error) {
-                                    console.log('Error fetching data: ' + error.toString());
-                                } else {
-                                    console.log(result);
-                                    
-                                    console.log('Success fetching data: ' + result.toString());
-                                }
-                            }
-
-                            const infoRequest = new GraphRequest(
-                                '/me',
-                                {
-                                    accessToken: accessToken,
-                                    parameters: {
-                                        fields: {
-                                            string: 
-                                                'email,name,first_name,middle_name,last_name, cover ,age_range,link,gender,locale,picture,timezone,updated_time,verified',
-                                        }
-                                    }
-                                },
-                                responseInfoCallback
-                            );
-                            new GraphRequestManager().addRequest(infoRequest).start() 
-                        }
-                    )
-                }  
-            },
-            function (error) {
-                console.log('Login fail with error: ' + error);
-            }
-        );
+    _fbAuth =() => {
+        this.props.fb_sign_in();
     }
-
-
-    
-
 
     render() {
         return (
@@ -157,4 +108,19 @@ const styles = StyleSheet.create({
 
 });
 
-export default Auth;
+const mapStateToProps = ({ auth}) => {
+    return {
+        auth,
+    }
+}
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fb_sign_in: () => dispatch(_fbAuth()),
+        google_sign_in: () => dispatch(_googleAuth())
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

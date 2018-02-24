@@ -1,8 +1,81 @@
 import {
+    FB_AUTH,
+    GOOGLE_AUTH,
     GET_COORDINATES ,
     GET_RESTAURANTS
 } from "./types";
 import React from "react";
+import { Actions } from 'react-native-router-flux';
+const FBSDK = require('react-native-fbsdk');
+const { LoginManager, AccessToken, GraphRequest, GraphRequestManager } = FBSDK;
+import { GoogleSignin} from 'react-native-google-signin';
+
+export const _fbAuth = () => {
+    return (dispatch) => {
+        var that = this;
+        LoginManager.logInWithReadPermissions(['public_profile']).then(
+            function (result) {
+                if (result.isCancelled) {
+                    console.log('Login cancelled');
+                } else {
+
+                    AccessToken.getCurrentAccessToken().then(
+                        (data) => {
+                            let accessToken = data.accessToken
+
+                            const responseInfoCallback = (error, result) => {
+                                if (error) {
+                                    console.log('Error fetching data: ' + error.toString());
+                                } else {
+                                    console.log(result);
+                                    dispatch({type: FB_AUTH, payload: result});
+                                }
+                            }
+
+                            const infoRequest = new GraphRequest(
+                                '/me',
+                                {
+                                    accessToken: accessToken,
+                                    parameters: {
+                                        fields: {
+                                            string:
+                                                'email,name,first_name,middle_name,last_name, cover ,age_range,link,gender,locale,picture,timezone,updated_time,verified',
+                                        }
+                                    }
+                                },
+                                responseInfoCallback
+                            );
+                            new GraphRequestManager().addRequest(infoRequest).start()
+                        }
+                    )
+                }
+            },
+            function (error) {
+                console.log('Login fail with error: ' + error);
+            }
+        );
+    } 
+}
+
+export const _googleAuth = () => {
+    return (dispatch) => {
+        GoogleSignin.configure({
+            webClientId: '693614564118-ej8ukdngmkgvodgmalsa7ik2kj8hq1ho.apps.googleusercontent.com',
+            offlineAccess: false
+        })
+            .then(() => {
+                GoogleSignin.signIn()
+                .then((user) => {
+                    console.log(user);
+                    dispatch({ type: GOOGLE_AUTH, payload: user})
+                })
+                .catch((err) => {
+                    console.log('WRONG SIGNIN', err);
+                })
+                .done();
+            });
+    }
+}
 
 
 export const getUsersLocation = () => {
