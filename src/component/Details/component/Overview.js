@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
-import { Platform, View, ScrollView, Text, StatusBar, StyleSheet, FlatList } from 'react-native';
+import { Platform, View, ScrollView, Text, StatusBar, StyleSheet, FlatList , TouchableOpacity} from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import Communications from 'react-native-communications';
 
 import SliderEntry from '../SliderEntry';
 import { ENTRIES1, ENTRIES2 } from '../entries';
@@ -39,7 +41,6 @@ class OverView extends Component {
     }
     
     componentWillReceiveProps(next){
-        console.log(next.overview, 'over');
         this.setState({
             overview: next.overview
         });
@@ -78,12 +79,27 @@ class OverView extends Component {
     }
     renderRow({item}) {
         return (
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', marginBottom: 10 }}>
                 <Text>{'\u2022'}</Text>
                 <Text style={{  paddingLeft: 5 }}>{item}</Text>
             </View>
         );
     }
+    _openCloseTime = (opening_hours) => {
+        if (opening_hours.weekday_text) {
+            return (
+                <View style={style.actionWrapper}>
+                    <Icon
+                        name={'ios-time-outline'}
+                        size={30}
+                    />
+                    <Text>{opening_hours.weekday_text[0].substring(8)}</Text>
+                </View>
+            )
+        }
+        
+    }
+    _keyExtractor = (item, index) => item.id;
     renderOverView = () => {
        if (this.state.overview) {
           
@@ -105,21 +121,15 @@ class OverView extends Component {
                                <Text style={style.status}>{opening_hours.open_now ? 'Open now' : 'closed'}</Text>
                                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>.</Text>
                                <Text style={style.loca}>{distance}</Text>
-                               <Text style={{ fontSize: 20, fontWeight: 'bold', }}>.</Text>
                            </View>
                            <FlatList
+                               keyExtractor={this._keyExtractor}
                                data={types}
                                renderItem={({ item }) => this.renderRow({item})}
                            />
                            <Text style={style.loca}>{formatted_address}</Text>
                            <View style={style.action}>
-                               <View style={style.actionWrapper}>
-                                   <Icon
-                                       name={'ios-time-outline'}
-                                       size={30}
-                                   />
-                                   <Text>5AM-10AM</Text>
-                               </View>
+                              {this._openCloseTime(opening_hours)}
                                <View style={style.actionWrapper}>
                                    <Icon
                                        name={'ios-navigate-outline'}
@@ -127,13 +137,15 @@ class OverView extends Component {
                                    />
                                    <Text>Direct</Text>
                                </View>
-                               <View style={style.actionWrapper}>
+                               <TouchableOpacity 
+                                   onPress={() => Communications.phonecall(international_phone_number, true)}
+                                    style={style.actionWrapper}>
                                    <Icon
                                        name={'ios-call-outline'}
                                        size={30}
                                    />
                                    <Text>Call now</Text>
-                               </View>
+                               </TouchableOpacity>
                                <View style={style.actionWrapper}>
                                    <Icon
                                        name={'ios-bookmark'}
@@ -147,12 +159,9 @@ class OverView extends Component {
                </ScrollView>
            );
        }
-       
-       
     }
 
     render() {
-        console.log(this.props.overview, 'last');
         return (
             <View style={{ flex: 1, backgroundColor: '#fff', }}>
                 {this.renderOverView()}

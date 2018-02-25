@@ -1,45 +1,65 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import color from "../assets/colors";
-
+import {connect } from 'react-redux';
 class DrawerScreen extends Component {
     
+    state = {
+        userInfo : null
+    }
+
+    componentWillReceiveProps(next) {
+        console.log(next, 'drawer');
+        this.setState({
+            userInfo: next.auth.user
+        });
+    }
+    _renderImformation = () => {
+        if (this.state.userInfo) {
+            return (
+                <View style={styles.layerContainer}>
+                    <View style={styles.layerWrapper}>
+                        <View style={styles.firstLayer}>
+
+                        </View>
+                        <View style={styles.secondLayer}>
+
+
+                        </View>
+                        <View style={styles.thirdLayer}>
+
+                        </View>
+                        <View style={{ height: 20, width: 20, left: 10, bottom: 37, position: 'absolute', borderRadius: 10, backgroundColor: '#00C22F' }}>
+
+                        </View>
+                    </View>
+                    <Image
+                        style={styles.profileImage}
+                        source={{ uri: 'https://www.bostonsausage.co.uk/wp-content/uploads/2013/11/Rump-Steak-Meal-Deal.jpg' }} />
+
+                    <View style={styles.infoContainer}>
+                        <View style={{ height: 30, width: 30, left: 20, position: 'absolute', borderRadius: 15, backgroundColor: '#00C22F' }}>
+
+                        </View>
+                        <Text style={{
+                            fontSize: 19,
+                            color: '#000'
+                        }}>{this.state.userInfo.name}</Text>
+                        <Text> Dhaka, Bangladesh </Text>
+                        <View style={{ height: 12, width: 12, right: 20, bottom: 37, position: 'absolute', borderRadius: 6, backgroundColor: '#00C22F' }}>
+
+                        </View>
+                    </View>
+                </View>
+            );
+        }
+        
+    }
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.profileContainer}>
-                        <View style={styles.layerContainer}>
-                            <View style={styles.layerWrapper}>
-                                <View style={styles.firstLayer}>
-                                
-                                </View>
-                                <View style={styles.secondLayer}>
-
-
-                                </View>
-                                <View style={styles.thirdLayer}>
-                                   
-                                </View>
-                                <View style={{ height: 20, width: 20, left: 10, bottom: 37, position: 'absolute', borderRadius: 10, backgroundColor: '#00C22F' }}>
-
-                                </View>
-                            </View>
-                            <Image
-                                style={styles.profileImage}
-                                source={{ uri: 'https://www.bostonsausage.co.uk/wp-content/uploads/2013/11/Rump-Steak-Meal-Deal.jpg' }} />
-                       
-                            <View style={styles.infoContainer}>
-                                <View style={{ height: 30, width: 30, left: 20, position: 'absolute', borderRadius: 15, backgroundColor:'#00C22F'}}>
-
-                                </View>
-                                <Text style={{fontSize: 19, 
-                                color: '#000'}}>Name</Text>
-                                <Text> Dhaka, Bangladesh </Text>
-                                <View style={{ height: 12, width: 12, right: 20, bottom: 37, position: 'absolute', borderRadius: 6, backgroundColor: '#00C22F' }}>
-
-                                </View>
-                            </View>
-                        </View>
+                        {this._renderImformation()}
                     <View>
                 </View>
                 </View>
@@ -127,4 +147,11 @@ const styles = StyleSheet.create({
     }
 });
 
-export default DrawerScreen;
+const mapStateToProps =({auth}) => {
+    return {
+        auth
+    }
+}
+
+
+export default connect(mapStateToProps)(DrawerScreen);

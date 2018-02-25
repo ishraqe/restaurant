@@ -19,12 +19,10 @@ class ScrollableTab extends Component {
     }
 
     componentWillReceiveProps (next) {
-       
-        console.log(next.details, 'did mount');
         setTimeout(() => {
             if (next.details) {
                 this.setState({
-                    reviews: next.reviews,
+                    reviews: next.details.reviews,
                     overview: next.details
                 })
             }
@@ -32,7 +30,7 @@ class ScrollableTab extends Component {
     }
 
     render () {
-        console.log(this.state.overview, 'props found');
+        console.log(this.state.reviews, 'props found');
         return (
             <ScrollableTabView
                 initialPage={0}

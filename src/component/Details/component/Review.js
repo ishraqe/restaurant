@@ -5,22 +5,44 @@ import ReviewList from './ReviewList';
 import { Actions } from 'react-native-router-flux';
 
 class Review extends Component {
+
+    state = {
+        reviews : null
+    }
+
     componentWillMount() {
         Actions.refresh({ title: 'Review' });
-        // console.log(this.props.reviews);
-        
     }
-    render() {
-        return (
-            <View style={styles.container}>
+
+    // componentWillReceiveProps(next) {
+    //     console.log(next, 'reviews');
+    // }
+    componentDidMount() {
+        this.setState({
+            reviews: this.props.reviews
+        })
+    }
+    _keyExtractor = (item, index) => item[index];
+    _renderReview =() => {
+        if (this.state.reviews) {
+            return (
                 <FlatList
-                    data={[{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'd' }, { key: 'e' }, { key: 'f' }, { key: 'g' }, { key: 'h' }, { key: 'i' }, { key: 'j' }, { key: 'k' }, { key: 'l' }, { key: 'm' }, { key: 'n' }, { key: 'o' }, { key: 'p' }, { key: 'q' }, { key: 'r' }, { key: 's' }, { key: 't' }, { key: 'u' }, { key: 'v' }, { key: 'w' }, { key: 'x' }, { key: 'y' }, { key: 'z' }, { key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' }, { key: '7' }, { key: '8' }, { key: '9' }, { key: '10' }, { key: '11' }, { key: '12' }, { key: '13' }, { key: '14' }, { key: '15' }, { key: '16' }]}
+                    keyExtractor={this._keyExtractor}
+                    data={this.state.reviews}
                     renderItem={({ item }) => (
                         <ReviewList
                             item={item}
                         />
                     )}
                 />
+            );
+        }
+    }
+    render() {
+        // console.log(this.props.reviews);
+        return (
+            <View style={styles.container}>
+              {this._renderReview()}
             </View>
         );
     }

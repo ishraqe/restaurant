@@ -5,6 +5,8 @@ import color from '../../../assets/colors';
 
 
 const ReviewList = (props) => {
+    console.log(props);
+    const { author_name, profile_photo_url, rating, relative_time_description, text, time } = props.item;
     return (
             <View style={{
                 flex: 1, marginTop: 20}}>
@@ -13,27 +15,17 @@ const ReviewList = (props) => {
                         <View style={styles.cardInsiedContainer}>
                         <View style={styles.profileContainer}>
                                 <Image
-                                    source={{ uri: 'https://moviemavengaldotcom.files.wordpress.com/2016/10/sai-pallavi-premam-malar-images-2.jpg' }}
+                                    source={{ uri: profile_photo_url }}
                                     style={styles.profileImage}
                                 />
                                 <View>
-                                    <Text style={styles.name}>Ama Watson</Text>
-                                    <Text style={styles.time}>23 hour</Text>
-            
+                                    <Text style={styles.name}>{author_name}</Text>
+                                <Text style={styles.time}>{relative_time_description}</Text>
                                 </View>
                         </View> 
-                            <Text style={styles.review}>9,2/10</Text>
+                            <Text style={styles.review}>{rating}/5</Text>
                         </View>
-                        <Text >
-                            lorem  lorem  lorem  lorem
-                            lorem  lorem  lorem  lorem
-                            lorem  lorem  lorem  lorem
-                            lorem  lorem  lorem  lorem
-                            lorem  lorem  lorem  lorem
-                            lorem  lorem  lorem  lorem
-                            lorem  lorem  lorem  lorem
-                            lorem  lorem  lorem  lorem 
-                        </Text>
+                        <Text >{text}</Text>
                     </View>
                 </CardSection>
             </View>    
