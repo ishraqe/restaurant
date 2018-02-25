@@ -21,7 +21,6 @@ class Home  extends Component {
         this.props.get_user_latlng();
     }
     componentWillReceiveProps(next) {
-        console.log(next);
         this.setState({
             userLatLong: next.auth.userLatLong,
             restaurant: next.auth.restaurants

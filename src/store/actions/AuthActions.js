@@ -2,14 +2,15 @@ import {
     FB_AUTH,
     GOOGLE_AUTH,
     GET_COORDINATES ,
-    GET_RESTAURANTS
+    GET_RESTAURANTS,
+    LOG_OUT
 } from "./types";
 
 import React from "react";
 import { AsyncStorage} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 const FBSDK = require('react-native-fbsdk');
-const { LoginManager, AccessToken, GraphRequest, GraphRequestManager } = FBSDK;
+const { LoginManager, LoginButton, AccessToken, GraphRequest, GraphRequestManager } = FBSDK;
 import { GoogleSignin} from 'react-native-google-signin';
 
 export const _fbAuth = () => {
@@ -86,8 +87,26 @@ export const _googleAuth = () => {
     }
 }
 
-
-
+export const logOut = ({type}) => {
+    console.log(type, 'in action');
+    return (dispatch) => {
+        if ( type === 'fb') {
+            LoginManager.logOut();
+            AsyncStorage.removeItem('as:auth:user');
+            Actions.first();
+        }else if (type === 'google') {
+            GoogleSignin.signOut()
+            .then(() => {
+                AsyncStorage.removeItem('as:auth:user');
+                Actions.first();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        
+        }
+    }
+}
 
 export const getUsersLocation = () => {
     

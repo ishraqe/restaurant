@@ -8,10 +8,6 @@ import {getDistanceFromLatLonInKm} from '../component/util';
 import { getUsersLocation} from '../store/actions';
 
 
-const API_KEY = 'AIzaSyCc4aVWLkCZyvh8ERdTuVg0UgPfeux2kz4'; 
-
-
-
 class Map extends Component {
     state = {
         focusedLocation  :  {
@@ -24,7 +20,7 @@ class Map extends Component {
     }
    
    componentWillReceiveProps(next) {
-    console.log(next);
+    console.log(next, 'map');
     this.setState({
         restaurant: next.restaurant,
         focusedLocation : {
@@ -78,11 +74,7 @@ const styles =  StyleSheet.create({
     },
 });
 
-
-
 const mapStateToProps = (state) => {
-    console.log(state.auth);
-    
     return {
         restaurant: state.auth.restaurants,
         userLocation: state.auth.userLatLong

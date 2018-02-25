@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import color from "../assets/colors";
 import {connect } from 'react-redux';
+import { logOut} from '../store/actions/index';
+
+
 class DrawerScreen extends Component {
     
     state = {
@@ -14,7 +17,7 @@ class DrawerScreen extends Component {
             userInfo: next.auth.user
         });
     }
-    _renderImformation = () => {
+    _renderInformation = () => {
         if (this.state.userInfo) {
             return (
                 <View style={styles.layerContainer}>
@@ -35,16 +38,14 @@ class DrawerScreen extends Component {
                     </View>
                     <Image
                         style={styles.profileImage}
-                        source={{ uri: 'https://www.bostonsausage.co.uk/wp-content/uploads/2013/11/Rump-Steak-Meal-Deal.jpg' }} />
+                        source={{ uri: this.state.userInfo.type === 'fb' ? this.state.userInfo.picture.data.url :  ((this.state.userInfo.type === 'google') ? (this.state.userInfo.photo) : '')} } />
 
                     <View style={styles.infoContainer}>
-                        <View style={{ height: 30, width: 30, left: 20, position: 'absolute', borderRadius: 15, backgroundColor: '#00C22F' }}>
-
-                        </View>
+                        <View style={{ height: 30, width: 30, left: 20, position: 'absolute', borderRadius: 15, backgroundColor: '#00C22F' }}></View>
                         <Text style={{
                             fontSize: 19,
                             color: '#000'
-                        }}>{this.state.userInfo.name}</Text>
+                        }}>{ this.state.userInfo.name}</Text>
                         <Text> Dhaka, Bangladesh </Text>
                         <View style={{ height: 12, width: 12, right: 20, bottom: 37, position: 'absolute', borderRadius: 6, backgroundColor: '#00C22F' }}>
 
@@ -55,16 +56,22 @@ class DrawerScreen extends Component {
         }
         
     }
+    logOutHandler = () => {
+        const type = this.state.userInfo.type;
+        this.props.log_out_user({ type});
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.profileContainer}>
-                        {this._renderImformation()}
+                        {this._renderInformation()}
                     <View>
                 </View>
                 </View>
                 <View style={styles.settingsController}>
                     <TouchableOpacity
+                        onPress={() => this.logOutHandler()}
                         style={{ width: '58%'}}  
                     >
                         <View 
@@ -153,5 +160,11 @@ const mapStateToProps =({auth}) => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        log_out_user: ({type}) => dispatch(logOut({type})),
+    };
+};
 
-export default connect(mapStateToProps)(DrawerScreen);
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerScreen);

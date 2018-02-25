@@ -5,7 +5,6 @@ import color from '../../../assets/colors';
 
 
 const ReviewList = (props) => {
-    console.log(props);
     const { author_name, profile_photo_url, rating, relative_time_description, text, time } = props.item;
     return (
             <View style={{

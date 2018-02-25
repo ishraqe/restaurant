@@ -1,7 +1,8 @@
 import {
     FB_AUTH,
     GOOGLE_AUTH,
-    GET_RESTAURANTS
+    GET_RESTAURANTS,
+    LOG_OUT
 } from "../actions/types";
 
 
@@ -25,6 +26,9 @@ export default (state = INITIAL_STATE, actions) => {
             console.log(actions);
             return { ...state, restaurants: actions.payload.data.results , userLatLong: actions.payload.focusedLocation };
             break;
+        case LOG_OUT : 
+        return INITIAL_STATE;
+            break;    
         default:
             return state;
     }
