@@ -24,7 +24,12 @@ export default (state = INITIAL_STATE, actions) => {
             break;
         case GET_RESTAURANTS:
             console.log(actions);
-            return { ...state, restaurants: actions.payload.data.results , userLatLong: actions.payload.focusedLocation };
+            return { 
+                ...state, 
+                restaurants: actions.payload.data.results , 
+                userLatLong: actions.payload.focusedLocation,
+                user : actions.payload.userInfo 
+            };
             break;
         case LOG_OUT : 
         return INITIAL_STATE;

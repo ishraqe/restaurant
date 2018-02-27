@@ -1,6 +1,7 @@
 import {
     GET_RESTAURANTS_DETAILS,
-    SAVE_BOOKMARK
+    SAVE_BOOKMARK,
+    GET_BOOKMARKS
 } from "./types";
 import {AsyncStorage} from 'react-native';
 
@@ -28,12 +29,29 @@ export const getRestaurantDetails = ({ place_id}) => {
     }
 }
 
-export const bookMarkRestaurant = (info) => {
+export const getBookMark = () => {
     return (dispatch) => {
-        console.log(info);
+        AsyncStorage.getItem('as:info:bookmark',)
+        .then(
+            bookmarks => {
+                dispatch({type: GET_BOOKMARKS, payload: JSON.parse(bookmarks)})
+            }
+        )
+        .catch(err => console.log(err));
+    }
+}
+
+
+export const bookMarkRestaurant = (info) => {
+    return (dispatch,getState) => {
+        const { restaurants } = getState();
+        console.log(restaurants.bookmarks);
+       const newInfo = [];
+       newInfo.push(info,restaurants.bookmarks);
+       console.log(newInfo);
         try {
-            AsyncStorage.setItem('as:info:bookmark', JSON.stringify(info));
-            dispatch({type: SAVE_BOOKMARK, payload: info});
+            AsyncStorage.setItem('as:info:bookmark', JSON.stringify(newInfo));
+            dispatch({type: SAVE_BOOKMARK, payload: newInfo});
         } catch (error) {
             console.log(error);
         }

@@ -131,10 +131,20 @@ export const getUsersLocation = () => {
                         }
                     })
                     .then(data => {
-                        const userAndRes = {
-                            data, focusedLocation
+                        try {
+                            AsyncStorage.getItem('as:auth:user',)
+                            .then(user => {
+                                var userInfo = null;
+                                userInfo = JSON.parse(user);
+                                const userAndRes = {
+                                    data, focusedLocation , userInfo
+                                }
+                                dispatch({ type: GET_RESTAURANTS, payload: userAndRes })
+                            }).catch(err=> console.log(err));
+                        } catch (error) {
+                            
                         }
-                        dispatch({ type: GET_RESTAURANTS, payload: userAndRes })
+                       
                     })
                     .catch(error => console.log(error))   
                 // dispatch({ 

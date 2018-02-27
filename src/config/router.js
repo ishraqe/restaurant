@@ -90,11 +90,11 @@ class RouterComponent extends Component {
                                     component={Map}
                                     title="Map"
                                 />
-                                <Scene
+                                {/* <Scene
                                     key="Notification"
                                     component={NotificationScreen}
                                     title="Notification"
-                                />
+                                /> */}
                                 <Scene
                                     key="Bookmark"
                                     component={BookmarkScreen}

@@ -1,6 +1,7 @@
 import {
     GET_RESTAURANTS_DETAILS,
-    SAVE_BOOKMARK
+    SAVE_BOOKMARK,
+    GET_BOOKMARKS
 } from "../actions/types";
 
 
@@ -16,9 +17,13 @@ export default (state = INITIAL_STATE, actions) => {
             return { ...state, restaurant_detail: actions.payload };
             break;
         case SAVE_BOOKMARK:
-        console.log(actions);
-        return { ...state, bookmarks: actions.payload };
-        break;
+            console.log(actions);
+            return { ...state, bookmarks: actions.payload};
+            break;
+        case GET_BOOKMARKS: 
+            console.log(actions);
+            return { ...state, bookmarks: actions.payload};
+            break;
         default:
             return state;
     }

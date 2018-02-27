@@ -12,16 +12,18 @@ import { _fbAuth, _googleAuth } from '../store/actions/index';
 
 class Auth extends Component {
     
-    componentDidMount() {
+    componentWillMount() {
         AsyncStorage.getItem('as:auth:user',)
-        .then(
-            user => console.log(user)   
-        )
-        .catch(err => console.log(err));
-        AsyncStorage.getItem('as:info:bookmark',)
-        .then(
-            user => console.log(JSON.parse(user))   
-        )
+        .then(user => {
+                 if(user !== null){
+                    AsyncStorage.getItem('as:info:bookmark',)
+                    .then(
+                        user => console.log(JSON.parse(user))   
+                    )
+                    .catch(err => console.log(err));
+                    Actions.lightbox();
+                } 
+            })
         .catch(err => console.log(err));
     }
     

@@ -19,7 +19,7 @@ class Search extends Component {
                     />
                     <View style={styles.locationCon}>
                         <Text
-                            style={{marginLeft: 10, marginRight: 10}}
+                            style={{marginLeft: 10, marginRight: 10, color: '#000'}}
                         >in</Text>
                         <Input
                             placeholder='Dhaka, Bangladesh'
@@ -35,18 +35,6 @@ class Search extends Component {
                 </View>
                 <ScrollView style={{ flex: 1 }}>
                 <View style={styles.resultContainer}>
-                   
-                        <Text
-                            style={{fontSize: 20, fontWeight: 'bold', color: '#000',marginLeft: 10,marginTop: 30, marginBottom: 5}}
-                        >Recommended for you</Text>
-                        <FlatList
-                            data={[{ key: 'a' }, { key: 'b' }, { key: 'c' }, { key: 'd' }, { key: 'e' }, { key: 'f' }, { key: 'g' }, { key: 'h' }, { key: 'i' }, { key: 'j' }, { key: 'k' }, { key: 'l' }, { key: 'm' }, { key: 'n' }, { key: 'o' }, { key: 'p' }, { key: 'q' }, { key: 'r' }, { key: 's' }, { key: 't' }, { key: 'u' }, { key: 'v' }, { key: 'w' }, { key: 'x' }, { key: 'y' }, { key: 'z' }, { key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }, { key: '5' }, { key: '6' }, { key: '7' }, { key: '8' }, { key: '9' }, { key: '10' }, { key: '11' }, { key: '12' }, { key: '13' }, { key: '14' }, { key: '15' }, { key: '16' }]}
-                            renderItem={({ item }) => (
-                                <ListComponent
-                                    item={item}
-                                />
-                            )}
-                        />
                    
                 </View>
                 </ScrollView>

@@ -5,7 +5,7 @@ import { BoxShadow } from 'react-native-shadow';
 import ListComponent from '../component/Home/ListComponent'
 
 import { connect } from 'react-redux';
-import { getUsersLocation, getRestaurant } from '../store/actions';
+import { getUsersLocation, getRestaurant , getBookMark } from '../store/actions';
 
 import RNGooglePlaces from 'react-native-google-places';
 
@@ -27,7 +27,9 @@ class Home  extends Component {
         });
     }
 
-     
+    componentDidMount = () => {
+        this.props.get_bookmarks();
+    } 
     
 
     _keyExtractor = (item, index) => item.id;
@@ -36,7 +38,7 @@ class Home  extends Component {
         console.log(this.state.userLatLong);
         return (
                 <View style={styles.container}>
-                    <View style={styles.iconContainer}>
+                    {/* <View style={styles.iconContainer}>
                         <BoxShadow setting={color.shadowOpt}>
                             <TouchableOpacity
                                 style={{height: '100%',width: '100%'}}    
@@ -79,7 +81,7 @@ class Home  extends Component {
                                 </View>
                             </TouchableOpacity>
                         </BoxShadow>
-                    </View>
+                    </View> */}
                     <View style={styles.listContainer}>
                         <FlatList
                             data={this.state.restaurant}
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
     listContainer : {
         
         width: '100%',
-        marginBottom: 50
+        marginBottom: 10
     }
 });
 
@@ -141,7 +143,8 @@ const mapStateToProps = ({ auth}) => {
 const mapDispatchToProps = dispatch => {
     return {
         get_user_latlng: () => dispatch(getUsersLocation()),
-        get_restaurant: ({ lat, lon }) => dispatch(getRestaurant({lat, lon})) 
+        get_restaurant: ({ lat, lon }) => dispatch(getRestaurant({lat, lon})), 
+        get_bookmarks: () => dispatch(getBookMark())
     };
 };
 

@@ -6,6 +6,7 @@ import color from '../../assets/colors';
 
 
 const ListComponent = (props) => {
+    const { name, opening_hours, rating, geometry, vicinity, types} = props.item;
     return (
         <View style={{ marginTop: 20, width: '100%', paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>
            
@@ -17,20 +18,11 @@ const ListComponent = (props) => {
                             source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLxmBuSqBLEVe6FZkt8CK7GxewFiDHOihhgod4ncC8H0hPVV6w' }}
                         />
                         <View style={styles.rate}>
-                            <Text style={styles.rateText}>9.2</Text>
+                            <Text style={styles.rateText}>{rating}</Text>
                         </View>
                     </View>
                     <View style={styles.descContainer}>
-                        <Text style={styles.title}>Sublimotion</Text>
-                        <View style={styles.typeStyle}>
-                            <Text style={styles.type}>Restaurant</Text>
-                            <Text style={styles.tag}>$$$$$</Text>
-                        </View>
-                        <View style={styles.infoContainer}>
-                            <Text style={styles.status}>Open now </Text>
-                            <Text style={{fontSize: 20, fontWeight: 'bold', marginRight: 10}}>.</Text>
-                            <Text style={styles.loca}>40 Kilo from you</Text>
-                        </View>
+                        <Text style={styles.title}>{name}</Text>
                     </View>
                 </View>
             </CardSection>

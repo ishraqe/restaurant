@@ -14,7 +14,14 @@ const ListComponent  = (props) => {
     onRowPress = () => {
         Actions.push('main', {item: props} );
     }
+    _getOpenStatus = (opening_hours) => {
+        if(opening_hours) {
+            return (
+                <Text style={opening_hours.open_now ? styles.status : [styles.status, {color:'red'}]}>{opening_hours.open_now ? 'Open now' : 'Closed'}</Text>
 
+            );
+        }
+    }
 
     return (
             <View style={{marginTop: 20, width: '100%', paddingLeft: 10, paddingRight: 10, borderRadius: 5}}>
@@ -39,7 +46,7 @@ const ListComponent  = (props) => {
                                     <Text style={styles.tag}>$$$$$</Text>                        
                                 </View>
                                 <View style={styles.infoContainer}>
-                            <Text style={opening_hours.open_now ? styles.status : [styles.status, {color:'red'}]}>{opening_hours.open_now ? 'Open now' : 'Closed'}</Text>
+                                    {this._getOpenStatus(opening_hours)}
                                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>.</Text>                        
                             <Text style={styles.loca}>{getDistanceFromLatLonInKm(latitude, longitude, geometry.location.lat, geometry.location.lng )} from you</Text>
                                     <Text style={{ fontSize: 20, fontWeight: 'bold', }}>.</Text>                        
