@@ -26,7 +26,22 @@ class Auth extends Component {
             })
         .catch(err => console.log(err));
     }
-    
+
+    componentDidMount() {
+        this._setupGoogleSignin();
+    }
+    async _setupGoogleSignin() {
+        try {
+          await GoogleSignin.hasPlayServices({ autoResolve: true });
+          await GoogleSignin.configure({
+            webClientId: '603421766430-60og8n04mebic8hi49u1mrcmcdmugnd5.apps.googleusercontent.com',
+            offlineAccess: false
+          });
+        }
+        catch(err) {
+          console.log("Play services error", err.code, err.message);
+        }
+      }
     _googleSignIn = () => {
         this.props.google_sign_in();
     }

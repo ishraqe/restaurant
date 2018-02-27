@@ -70,20 +70,20 @@ export const _googleAuth = () => {
             webClientId: '693614564118-ej8ukdngmkgvodgmalsa7ik2kj8hq1ho.apps.googleusercontent.com',
             offlineAccess: false
         })
-            .then(() => {
-                GoogleSignin.signIn()
-                .then((user) => {
-                    const userInfo = {...user, type: 'google' }
-                    dispatch({ type: GOOGLE_AUTH, payload: userInfo })
-                    console.log(userInfo);                 
-                    AsyncStorage.setItem('as:auth:user', JSON.stringify(userInfo));
-                    Actions.lightbox(); 
-                })
-                .catch((err) => {
-                    console.log('WRONG SIGNIN', err);
-                })
-                .done();
-            });
+        .then(() => {
+            GoogleSignin.signIn()
+            .then((user) => {
+                const userInfo = {...user, type: 'google' }
+                dispatch({ type: GOOGLE_AUTH, payload: userInfo })
+                console.log(userInfo);                 
+                AsyncStorage.setItem('as:auth:user', JSON.stringify(userInfo));
+                Actions.lightbox(); 
+            })
+            .catch((err) => {
+                console.log('WRONG SIGNIN', err);
+            })
+            .done();
+        });
     }
 }
 

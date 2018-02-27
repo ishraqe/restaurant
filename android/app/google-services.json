@@ -17,17 +17,17 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.restaurent",
-            "certificate_hash": "18569b4e5271848d1dd22dcdb438624937ab8952"
+            "certificate_hash": "39:9D:12:64:3F:0E:3B:73:E6:EB:3B:56:94:A5:91:74:FF:5F:B6:43"
           }
         },
         {
-          "client_id": "693614564118-ej8ukdngmkgvodgmalsa7ik2kj8hq1ho.apps.googleusercontent.com",
+          "client_id": "693614564118-u763pm4tvfnjjklpata26207ldrjlnh7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDf_5tu2g_CqZlZP8EAhmxdfzS_vAB4RwU"
+          "current_key": "AIzaSyAwUyFikvyvgzx2Wp2bVc3Vt_hNm4AIggM"
         }
       ],
       "services": {
