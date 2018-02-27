@@ -1,6 +1,8 @@
 import {
-    GET_RESTAURANTS_DETAILS
+    GET_RESTAURANTS_DETAILS,
+    SAVE_BOOKMARK
 } from "./types";
+import {AsyncStorage} from 'react-native';
 
 
 export const getRestaurantDetails = ({ place_id}) => {
@@ -24,5 +26,17 @@ export const getRestaurantDetails = ({ place_id}) => {
         })
         .catch(error => console.log(error))    
     }
+}
 
+export const bookMarkRestaurant = (info) => {
+    return (dispatch) => {
+        console.log(info);
+        try {
+            AsyncStorage.setItem('as:info:bookmark', JSON.stringify(info));
+            dispatch({type: SAVE_BOOKMARK, payload: info});
+        } catch (error) {
+            console.log(error);
+        }
+       
+    }
 }

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-
 import { Platform, View, ScrollView, Text, StatusBar, StyleSheet, FlatList , TouchableOpacity} from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import {connect} from 'react-redux';
 import Communications from 'react-native-communications';
 
 import SliderEntry from '../SliderEntry';
@@ -14,6 +13,8 @@ import { scrollInterpolators, animatedStyles } from '../animations';
 import color from '../../../assets/colors';
 import { Actions } from 'react-native-router-flux';
 import { getDistanceFromLatLonInKm } from '../../util';
+import {bookMarkRestaurant } from '../../../store/actions/index';
+
 
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
@@ -99,11 +100,25 @@ class OverView extends Component {
         }
         
     }
-    _keyExtractor = (item, index) => item.id;
+
+    bookMarkRestaurantHandler = () => {
+        const info = this.state.overview;
+        this.props.save_bookmark(info);
+    }
+    _keyExtractor = (item, index) => item[index];
     renderOverView = () => {
        if (this.state.overview) {
           
-           const { name, rating, opening_hours, international_phone_number, geometry, formatted_address, types, user_latlng} = this.state.overview;
+            const { 
+               name, 
+               rating, 
+               opening_hours, 
+               international_phone_number, 
+               geometry, 
+               formatted_address, 
+               types, 
+               user_latlng
+            } = this.state.overview;
            const distance = getDistanceFromLatLonInKm(user_latlng.latitude, user_latlng.longitude, geometry.location.lat, geometry.location.lng);
            const example1 = this.mainExample(1, rating);
            return (
@@ -130,13 +145,16 @@ class OverView extends Component {
                            <Text style={style.loca}>{formatted_address}</Text>
                            <View style={style.action}>
                               {this._openCloseTime(opening_hours)}
-                               <View style={style.actionWrapper}>
+                               <TouchableOpacity 
+                                    onPress={() =>
+                                        Actions.push('Directions', { mapData : {geometry,name, user_latlng}})}
+                                    style={style.actionWrapper}>
                                    <Icon
                                        name={'ios-navigate-outline'}
                                        size={30}
                                    />
                                    <Text>Direct</Text>
-                               </View>
+                               </TouchableOpacity>
                                <TouchableOpacity 
                                    onPress={() => Communications.phonecall(international_phone_number, true)}
                                     style={style.actionWrapper}>
@@ -146,13 +164,15 @@ class OverView extends Component {
                                    />
                                    <Text>Call now</Text>
                                </TouchableOpacity>
-                               <View style={style.actionWrapper}>
+                               <TouchableOpacity 
+                                    onPress={this.bookMarkRestaurantHandler}
+                                    style={style.actionWrapper}>
                                    <Icon
                                        name={'ios-bookmark'}
                                        size={30}
                                    />
                                    <Text>Bookmark</Text>
-                               </View>
+                               </TouchableOpacity>
                            </View>
                        </View>
                    </View>
@@ -243,5 +263,11 @@ const style = StyleSheet.create({
     }
 });
 
+const mapDispatchToProps = dispatch => {
+    return {
+        save_bookmark : (info) => dispatch(bookMarkRestaurant(info))
+    }
+}
 
-export default OverView;
+
+export default connect(null, mapDispatchToProps)(OverView);

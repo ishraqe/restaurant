@@ -5,3 +5,4 @@ export const GET_COORDINATES = 'get_coordinates';
 export const GET_RESTAURANTS = 'get_restaurants';
 export const GET_RESTAURANTS_DETAILS = 'get_restaurants_details';
 export const LOG_OUT ='log_out';
+export const SAVE_BOOKMARK = 'save_bookmark';

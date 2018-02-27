@@ -15,6 +15,7 @@ import Map from '../screen/Map';
 import Details from '../screen/Details';
 import Tab from '../component/Details/Tab'
 import Test from '../screen/Test'
+import Direction from '../component/Details/component/Direct';
 
 class RouterComponent extends Component { 
 
@@ -107,6 +108,11 @@ class RouterComponent extends Component {
                             key='Details'
                             component={Details}
                             title='Details'
+                        />
+                        <Scene 
+                            key={'Directions'}
+                            component={Direction}
+                            title={'Direction'}
                         />
                     </Scene>
                 </Stack>

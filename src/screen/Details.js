@@ -19,7 +19,7 @@ class Details extends Component {
     componentWillReceiveProps(next) {
         console.log(next);
         setTimeout(() => {
-            if (next.restaurants) {
+            if (next.restaurants && next.restaurants.restaurant_detail) {
                 this.setState({
                     restaurant_detail: { ...next.restaurants.restaurant_detail.result, user_latlng: next.auth.userLatLong}
                 });

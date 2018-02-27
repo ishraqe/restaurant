@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, StatusBar, AsyncStorage} from "react-native";
+import { View, Text,NetInfo, StyleSheet, Image, Dimensions, TouchableOpacity, StatusBar, AsyncStorage} from "react-native";
 import color from '../assets/colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Video from "react-native-video";
@@ -13,13 +13,16 @@ import { _fbAuth, _googleAuth } from '../store/actions/index';
 class Auth extends Component {
     
     componentDidMount() {
-
-        AsyncStorage.getItem('as:auth:user')
+        AsyncStorage.getItem('as:auth:user',)
         .then(
-            user => console.log(user)
-            
+            user => console.log(user)   
         )
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
+        AsyncStorage.getItem('as:info:bookmark',)
+        .then(
+            user => console.log(JSON.parse(user))   
+        )
+        .catch(err => console.log(err));
     }
     
     _googleSignIn = () => {
