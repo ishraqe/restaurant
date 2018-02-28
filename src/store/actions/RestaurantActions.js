@@ -1,3 +1,5 @@
+'use strict';
+
 import {
     GET_RESTAURANTS_DETAILS,
     SAVE_BOOKMARK,
@@ -44,17 +46,30 @@ export const getBookMark = () => {
 
 export const bookMarkRestaurant = (info) => {
     return (dispatch,getState) => {
-        const { restaurants } = getState();
-        console.log(restaurants.bookmarks);
-       const newInfo = [];
-       newInfo.push(info,restaurants.bookmarks);
-       console.log(newInfo);
-        try {
-            AsyncStorage.setItem('as:info:bookmark', JSON.stringify(newInfo));
-            dispatch({type: SAVE_BOOKMARK, payload: newInfo});
-        } catch (error) {
-            console.log(error);
-        }
-       
+    //   AsyncStorage.removeItem('as:info:bookmark');
+        
+       const { restaurants } = getState();
+       let newArray = [];
+       if(restaurants.bookmarks) {   
+            if(Object.keys(restaurants.bookmarks) > 0) {
+                for (var key in restaurants.bookmarks){
+                    newArray.push(restaurants.bookmarks[key]);                
+                }
+            }else {
+                newArray.push(restaurants.bookmarks);
+            }
+            
+            console.log(newArray.push(info), '2nd info');
+            console.log(newArray);
+            try {
+                AsyncStorage.setItem('as:info:bookmark', JSON.stringify(newArray));
+                dispatch({type: SAVE_BOOKMARK, payload: newArray});
+            } catch (error) {
+                console.log(error);
+            }
+       }else {
+            AsyncStorage.setItem('as:info:bookmark', JSON.stringify(info));
+            dispatch({type: SAVE_BOOKMARK, payload: newArray.push(info)});
+       }
     }
 }

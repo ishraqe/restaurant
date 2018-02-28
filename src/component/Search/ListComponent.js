@@ -7,9 +7,10 @@ import color from '../../assets/colors';
 
 const ListComponent = (props) => {
     const { name, opening_hours, rating, geometry, vicinity, types} = props.item;
+    console.log(props.geoLocation,props.item, 'geolocation');
+    
     return (
         <View style={{ marginTop: 20, width: '100%', paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>
-           
             <CardSection>
                 <View style={{width: '100%', flexDirection: 'row'}}>
                     <View style={styles.imageCover}>

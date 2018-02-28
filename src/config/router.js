@@ -65,7 +65,7 @@ class RouterComponent extends Component {
                         />
                     </Stack>
                     <Scene key="lightbox" lightbox >
-                        <Scene key="drawer" initial drawer contentComponent={DrawerScreen}>
+                        <Scene key="drawer"  drawer contentComponent={DrawerScreen}>
                             <Scene 
                                 key="tabbar"
                                 showLabel={true} 
@@ -76,6 +76,7 @@ class RouterComponent extends Component {
                               
                             >
                                 <Scene
+                                    initial
                                     key="Home"
                                     component={HomeScreen}
                                     title="Home"

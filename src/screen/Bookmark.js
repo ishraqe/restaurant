@@ -12,22 +12,26 @@ class Bookmark extends Component {
     }
 
     componentWillReceiveProps (next) {
-        console.log(next);  
-        this.setState({
-            bookmarks: next.restaurants.bookmarks,
-            userLatLong: next.auth.userLatLong,
-        });  
+        console.log(next); 
+        if( next.auth.userLatLong) {
+            this.setState({
+                bookmarks: next.restaurants.bookmarks,
+                userLatLong: next.auth.userLatLong,
+            });  
+        } 
+       
     }
     _keyExtractor = (item, index) => item.id;
     renderBookmarks = () => {
         if(this.state.bookmarks) {
             return (
                 <FlatList
-                data={[this.state.bookmarks]}
+                data={this.state.bookmarks}
                 keyExtractor={this._keyExtractor}
                 renderItem={({ item }) => (
                     <ListComponent
                         item={item}
+                        key={item.id}
                         geoLocation={this.state.userLatLong}
                     />
                 )}
@@ -47,6 +51,7 @@ class Bookmark extends Component {
 }
 
 const mapStateToProps =({auth, restaurants}) => {
+ 
     return {
         restaurants,
         auth
