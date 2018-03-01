@@ -4,7 +4,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import Communications from 'react-native-communications';
-
+import {Spinner} from '../../common/index';
 import SliderEntry from '../SliderEntry';
 import { ENTRIES1, ENTRIES2 } from '../entries';
 import { sliderWidth, itemWidth } from '../SliderStyle';
@@ -38,7 +38,9 @@ class OverView extends Component {
         );
     }
     componentWillMount() {  
-        Actions.refresh({ title: 'Overview' })
+        Actions.refresh({ 
+            title: 'Overview',
+        })
     }
     
     componentWillReceiveProps(next){
@@ -108,7 +110,6 @@ class OverView extends Component {
     _keyExtractor = (item, index) => item[index];
     renderOverView = () => {
        if (this.state.overview) {
-          
             const { 
                name, 
                rating, 
@@ -179,6 +180,14 @@ class OverView extends Component {
                </ScrollView>
            );
        }
+       return (
+        <View style={{height: '100%',width: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
+            <Spinner 
+                size = {40}
+                color = {color.themeColor}
+            />
+        </View>
+    );
     }
 
     render() {

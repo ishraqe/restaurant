@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity , FlatList, ScrollView}
 import color from "../assets/colors";
 import { BoxShadow } from 'react-native-shadow';
 import ListComponent from '../component/Home/ListComponent'
-
+import {Spinner} from '../component/common/index';
 import { connect } from 'react-redux';
 import { getUsersLocation, getRestaurant , getBookMark } from '../store/actions';
 
@@ -33,7 +33,30 @@ class Home  extends Component {
     
 
     _keyExtractor = (item, index) => item.id;
-
+    renderFlatList = () => {
+       if(this.state.restaurant) {
+           return (
+                <FlatList
+                data={this.state.restaurant}
+                keyExtractor={this._keyExtractor}
+                renderItem={({ item }) => (
+                    <ListComponent
+                        item={item}
+                        geoLocation={this.state.userLatLong}
+                    />
+                )}
+            />
+           )
+       }
+        return (
+            <View style={{height: '100%',width: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
+                <Spinner 
+                    size = {40}
+                    color = {color.themeColor}
+                />
+            </View>
+        );
+    }
     render () {
         console.log(this.state.userLatLong);
         return (
@@ -83,16 +106,7 @@ class Home  extends Component {
                         </BoxShadow>
                     </View> */}
                     <View style={styles.listContainer}>
-                        <FlatList
-                            data={this.state.restaurant}
-                            keyExtractor={this._keyExtractor}
-                            renderItem={({ item }) => (
-                                <ListComponent
-                                    item={item}
-                                    geoLocation={this.state.userLatLong}
-                                />
-                            )}
-                        />
+                       {this.renderFlatList()}
                     </View>
                 </View>
           

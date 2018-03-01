@@ -46,8 +46,7 @@ export const getBookMark = () => {
 
 export const bookMarkRestaurant = (info) => {
     return (dispatch,getState) => {
-    //   AsyncStorage.removeItem('as:info:bookmark');
-        
+    //   AsyncStorage.removeItem('as:info:bookmark');  
        const { restaurants } = getState();
        let newArray = [];
        if(restaurants.bookmarks) {   
@@ -58,9 +57,7 @@ export const bookMarkRestaurant = (info) => {
             }else {
                 newArray.push(restaurants.bookmarks);
             }
-            
-            console.log(newArray.push(info), '2nd info');
-            console.log(newArray);
+            newArray.push(info);
             try {
                 AsyncStorage.setItem('as:info:bookmark', JSON.stringify(newArray));
                 dispatch({type: SAVE_BOOKMARK, payload: newArray});

@@ -109,6 +109,7 @@ class RouterComponent extends Component {
                             key='Details'
                             component={Details}
                             title='Details'
+                            back={true}
                         />
                         <Scene 
                             key={'Directions'}

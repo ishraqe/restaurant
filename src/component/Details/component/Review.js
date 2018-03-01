@@ -22,7 +22,7 @@ class Review extends Component {
             reviews: this.props.reviews
         })
     }
-    _keyExtractor = (item, index) => item[index];
+    _keyExtractor = (item, index) => item;
     _renderReview =() => {
         if (this.state.reviews) {
             return (
@@ -32,6 +32,7 @@ class Review extends Component {
                     renderItem={({ item }) => (
                         <ReviewList
                             item={item}
+                            key={item}
                         />
                     )}
                 />
