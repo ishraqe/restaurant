@@ -1,65 +1,21 @@
 export const ENTRIES1 = [
     {
-        title: 'Beautiful and dramatic Antelope Canyon',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-        illustration: 'https://i.imgur.com/UYiroysl.jpg'
+        illustration: 'https://recipethis.com/wp-content/uploads/Homemade-Healthy-Vegetarian-Quinoa-Burger-with-Lettuce-and-Tomato-2.jpg'
     },
     {
-        title: 'Earlier this morning, NYC',
-        subtitle: 'Lorem ipsum dolor sit amet',
-        illustration: 'https://i.imgur.com/UPrs1EWl.jpg'
+        illustration: 'https://fthmb.tqn.com/3_ESnfVuv1myGcmd3gbfV8U_zdA=/2500x1700/filters:fill(auto,1)/grilled-strip-steak-2500-56a20fde5f9b58b7d0c6282e.jpg'
     },
     {
-        title: 'White Pocket Sunset',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-        illustration: 'https://i.imgur.com/MABUbpDl.jpg'
+        illustration: 'http://www.marcellaspizzeria.com/wp-content/uploads/2017/09/AAEAAQAAAAAAAAnMAAAAJGVjOGM4NjJjLTQwNTQtNGYxOC05ODU1LTQ3ZmVhMWVhYjg5MQ.jpg'
     },
     {
-        title: 'Acrocorinth, Greece',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-        illustration: 'https://i.imgur.com/KZsmUi2l.jpg'
+        illustration: 'https://images.theconversation.com/files/194291/original/file-20171113-27595-ox08qm.jpg?ixlib=rb-1.1.0&rect=2%2C169%2C995%2C497&q=45&auto=format&w=1356&h=668&fit=crop'
     },
     {
-        title: 'The lone tree, majestic landscape of New Zealand',
-        subtitle: 'Lorem ipsum dolor sit amet',
-        illustration: 'https://i.imgur.com/2nCt3Sbl.jpg'
+        illustration: 'https://peacockelite.com/wp-content/uploads/2017/05/DUM-BIRYANI-3.png'
     },
     {
-        title: 'Middle Earth, Germany',
-        subtitle: 'Lorem ipsum dolor sit amet',
-        illustration: 'https://i.imgur.com/lceHsT6l.jpg'
+        illustration: 'http://d3lp4xedbqa8a5.cloudfront.net/s3/digital-cougar-assets/food/2014/11/28/WomansDayBR111872/vietnamese-beef-curry.jpg'
     }
 ];
 
-export const ENTRIES2 = [
-    {
-        title: 'Favourites landscapes 1',
-        subtitle: 'Lorem ipsum dolor sit amet',
-        illustration: 'https://i.imgur.com/SsJmZ9jl.jpg'
-    },
-    {
-        title: 'Favourites landscapes 2',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-        illustration: 'https://i.imgur.com/5tj6S7Ol.jpg'
-    },
-    {
-        title: 'Favourites landscapes 3',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat',
-        illustration: 'https://i.imgur.com/pmSqIFZl.jpg'
-    },
-    {
-        title: 'Favourites landscapes 4',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-        illustration: 'https://i.imgur.com/cA8zoGel.jpg'
-    },
-    {
-        title: 'Favourites landscapes 5',
-        subtitle: 'Lorem ipsum dolor sit amet',
-        illustration: 'https://i.imgur.com/pewusMzl.jpg'
-    },
-    {
-        title: 'Favourites landscapes 6',
-        subtitle: 'Lorem ipsum dolor sit amet et nuncat',
-        illustration: 'https://i.imgur.com/l49aYS3l.jpg'
-    }
-];

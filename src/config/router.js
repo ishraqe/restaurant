@@ -65,7 +65,13 @@ class RouterComponent extends Component {
                         />
                     </Stack>
                     <Scene key="lightbox" lightbox >
-                        <Scene key="drawer"  drawer contentComponent={DrawerScreen}>
+                        <Scene key="drawer" drawerIcon={() => (
+                                <Icon 
+                                    name={'ios-menu-outline'}
+                                    size={30}
+                                    color={color.themeColor}
+                                />
+                            )} drawer contentComponent={DrawerScreen}>
                             <Scene 
                                 key="tabbar"
                                 showLabel={true} 
@@ -73,6 +79,7 @@ class RouterComponent extends Component {
                                 tabs={true}
                                 tabBarPosition={'bottom'}
                                 tabBarLabel={({ focused }) => this.getTabIcon}
+
                             >
                                 <Scene
                                     initial
