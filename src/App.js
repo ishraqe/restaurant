@@ -13,14 +13,6 @@ import Reducers from './store/reducers/index';
 class App extends Component {
     render () {
         const store = createStore(Reducers, {}, applyMiddleware(ReduxThunk))
-        renderApp = () => {
-            NetInfo.isConnected.fetch().then(isConnected => {
-                if(isConnected)
-                {
-                    console.log('Internet is connected');
-                }
-            })
-        }
         return (
             <Provider store={store}>
                 <View style={{width: '100%', height: '100%'}}>

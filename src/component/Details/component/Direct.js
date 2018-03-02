@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/Ionicons'
 
 class Direction extends Component {
     render () {
-        console.log(this.props.mapData);
         const userLatLong = {
             latitude: this.props.mapData.user_latlng.latitude,
             longitude: this.props.mapData.user_latlng.longitude,
@@ -17,12 +16,10 @@ class Direction extends Component {
         }
         const origin = {latitude: userLatLong.latitude, longitude: userLatLong.longitude};
         const destination = {latitude: this.props.mapData.geometry.location.lat , longitude:  this.props.mapData.geometry.location.lng};
-        const GOOGLE_MAPS_APIKEY = 'AIzaSyAwUyFikvyvgzx2Wp2bVc3Vt_hNm4AIggM';
+        const GOOGLE_MAPS_APIKEY = 'API_KEY';
         const markers = [];
         markers.push(origin, destination);
-        console.log(markers);
-        
-        
+                
         return (
             <View>
                  <MapView 

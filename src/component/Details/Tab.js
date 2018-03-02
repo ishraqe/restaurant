@@ -30,7 +30,6 @@ class ScrollableTab extends Component {
     }
 
     render () {
-        console.log(this.state.reviews, 'props found');
         return (
             <ScrollableTabView
                 initialPage={0}

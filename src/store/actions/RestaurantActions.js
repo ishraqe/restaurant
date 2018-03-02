@@ -11,7 +11,6 @@ import {AsyncStorage} from 'react-native';
 import RNGooglePlaces from 'react-native-google-places';
 
 export const getRestaurantDetails = ({ place_id}) => {
-    console.log('inside', place_id);
 
     return (dispatch) => {
         let url = 'https://maps.googleapis.com/maps/api/place/details/json?placeid='+place_id+'&key=AIzaSyAwUyFikvyvgzx2Wp2bVc3Vt_hNm4AIggM';
@@ -24,7 +23,6 @@ export const getRestaurantDetails = ({ place_id}) => {
             }
         })
         .then(data => {
-            console.log(data);
             dispatch({ type: GET_RESTAURANTS_DETAILS,  payload: data })
         })
         .catch(error => console.log(error))    
@@ -72,7 +70,6 @@ export const bookMarkRestaurant = (info) => {
 }
 
 export const getCity = ({country_code, cityname, restaurantName}) => {
-    console.log( cityname, 'ac');
     
     return (dispatch) => {
         RNGooglePlaces.getAutocompletePredictions(restaurantName, {

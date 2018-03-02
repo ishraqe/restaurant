@@ -14,9 +14,6 @@ class Review extends Component {
         Actions.refresh({ title: 'Review' });
     }
 
-    // componentWillReceiveProps(next) {
-    //     console.log(next, 'reviews');
-    // }
     componentDidMount() {
         this.setState({
             reviews: this.props.reviews
@@ -40,7 +37,6 @@ class Review extends Component {
         }
     }
     render() {
-        // console.log(this.props.reviews);
         return (
             <View style={styles.container}>
               {this._renderReview()}

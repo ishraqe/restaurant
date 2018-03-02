@@ -14,7 +14,6 @@ import DrawerScreen from '../screen/DrawerScreen';
 import Map from '../screen/Map';
 import Details from '../screen/Details';
 import Tab from '../component/Details/Tab'
-import Test from '../screen/Test'
 import Direction from '../component/Details/component/Direct';
 
 class RouterComponent extends Component { 

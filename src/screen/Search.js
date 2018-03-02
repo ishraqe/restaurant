@@ -24,22 +24,19 @@ class Search extends Component {
                 longitude: this.state.longitude
             })
             .then((place) => {
-                console.log(place);
                 let props = null;
                 let item = {
                     place_id : place.placeID
                 }
                 props = {...props, item};
-                console.log(item);
                 Actions.push('main', {item: props} );
             })
-            .catch(error => console.log(error.message));  // error is a Javascript Error object
+            .catch();  // error is a Javascript Error object
       }
 
 
 
     componentWillReceiveProps(next) {
-        console.log(next.auth, 'next');
         if(next.auth.userLatLong) {
             const {country_code, cityName, latitude, longitude} = next.auth.userLatLong;
             this.setState({
@@ -92,7 +89,6 @@ const styles= StyleSheet.create({
 });
 
 const mapStateToProps = ({auth, restaurants}) => {
-    console.log(auth);
     return {
         auth,restaurants
     }

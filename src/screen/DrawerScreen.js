@@ -12,7 +12,6 @@ class DrawerScreen extends Component {
     }
 
     componentWillReceiveProps(next) {
-        console.log(next, 'drawer');
         this.setState({
             userInfo: next.auth.user
         });

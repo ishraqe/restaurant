@@ -12,7 +12,6 @@ class Bookmark extends Component {
     }
 
     componentWillReceiveProps (next) {
-        console.log(next); 
         if( next.auth.userLatLong) {
             this.setState({
                 bookmarks: next.restaurants.bookmarks,

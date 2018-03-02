@@ -12,14 +12,11 @@ class Details extends Component {
     }
 
     componentDidMount () {
-        const place_id = this.props.item.item.place_id; 
-        console.log(this.props.item, 'details');
-               
+        const place_id = this.props.item.item.place_id;                
         this.props.get_restaurant_detail({ place_id });            
     }
 
     componentWillReceiveProps(next) {
-        console.log(next);
         setTimeout(() => {
             if (next.restaurants && next.restaurants.restaurant_detail) {
                 this.setState({
@@ -31,7 +28,6 @@ class Details extends Component {
        
     }
     render() {
-        console.log(this.state.restaurant_detail, 'detail');
         return (
             <View style={{flex:1 }}>
                 <Tab details={this.state.restaurant_detail}  />

@@ -18,22 +18,16 @@ export const _fbAuth = () => {
         var that = this;
         LoginManager.logInWithReadPermissions(['public_profile']).then(
             function (result) {
-                if (result.isCancelled) {
-                    console.log('Login cancelled');
-                } else {
-
+                if (!result.isCancelled) {
                     AccessToken.getCurrentAccessToken().then(
                         (data) => {
                             let accessToken = data.accessToken
 
                             const responseInfoCallback = (error, result) => {
                                 if (error) {
-                                    console.log('Error fetching data: ' + error.toString());
                                 } else {
-                                    console.log(result);
                                     const userInfo = { ...result, type: 'fb' }
                                     dispatch({ type: FB_AUTH, payload: userInfo});
-                                    console.log(userInfo);
                                     AsyncStorage.setItem('as:auth:user', JSON.stringify(userInfo));
                                     Actions.lightbox(); 
                                 }
@@ -58,7 +52,6 @@ export const _fbAuth = () => {
                 }
             },
             function (error) {
-                console.log('Login fail with error: ' + error);
             }
         );
     } 
@@ -73,14 +66,11 @@ export const _googleAuth = () => {
         .then(() => {
             GoogleSignin.signIn()
             .then((user) => {
-                const userInfo = {...user, type: 'google' }
                 dispatch({ type: GOOGLE_AUTH, payload: userInfo })
-                console.log(userInfo);                 
                 AsyncStorage.setItem('as:auth:user', JSON.stringify(userInfo));
                 Actions.lightbox(); 
             })
             .catch((err) => {
-                console.log('WRONG SIGNIN', err);
             })
             .done();
         });
@@ -88,7 +78,6 @@ export const _googleAuth = () => {
 }
 
 export const logOut = ({type}) => {
-    console.log(type, 'in action');
     return (dispatch) => {
         if ( type === 'fb') {
             LoginManager.logOut();
@@ -101,7 +90,6 @@ export const logOut = ({type}) => {
                 Actions.first();
             })
             .catch((err) => {
-                console.log(err);
             });
         
         }
@@ -130,7 +118,6 @@ export const getUsersLocation = () => {
                     fetch(url)
                         .then(response => {
                             if (response) {
-                                console.log('hello');
     
                                 return response.json();
                             } else {

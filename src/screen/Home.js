@@ -58,7 +58,6 @@ class Home  extends Component {
         );
     }
     render () {
-        console.log(this.state.userLatLong);
         return (
                 <View style={styles.container}>
                     {/* <View style={styles.iconContainer}>

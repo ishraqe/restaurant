@@ -20,7 +20,6 @@ class Map extends Component {
     }
    
    componentWillReceiveProps(next) {
-    console.log(next, 'map');
     this.setState({
         restaurant: next.restaurant,
         focusedLocation : {

@@ -16,11 +16,6 @@ class Auth extends Component {
         AsyncStorage.getItem('as:auth:user',)
         .then(user => {
                  if(user !== null){
-                    AsyncStorage.getItem('as:info:bookmark',)
-                    .then(
-                        user => console.log(JSON.parse(user))   
-                    )
-                    .catch(err => console.log(err));
                     Actions.lightbox();
                 } 
             })
@@ -39,7 +34,6 @@ class Auth extends Component {
           });
         }
         catch(err) {
-          console.log("Play services error", err.code, err.message);
         }
       }
     _googleSignIn = () => {
