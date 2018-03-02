@@ -113,44 +113,53 @@ export const getUsersLocation = () => {
     return (dispatch) => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-               const focusedLocation = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                };
-                let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + focusedLocation.latitude + ',' + focusedLocation.longitude + '&radius=500&type=restaurant&key=AIzaSyAwUyFikvyvgzx2Wp2bVc3Vt_hNm4AIggM';
+               
+                let url = 'https://freegeoip.net/json/';
                 fetch(url)
-                    .then(response => {
-                        if (response) {
-                            console.log('hello');
-
-                            return response.json();
-                        } else {
-                            throw new Error('Something went wrong ...');
-                        }
-                    })
-                    .then(data => {
-                        try {
-                            AsyncStorage.getItem('as:auth:user',)
-                            .then(user => {
-                                var userInfo = null;
-                                userInfo = JSON.parse(user);
-                                const userAndRes = {
-                                    data, focusedLocation , userInfo
-                                }
-                                dispatch({ type: GET_RESTAURANTS, payload: userAndRes })
-                            }).catch(err=> console.log(err));
-                        } catch (error) {
-                            
-                        }
-                       
-                    })
-                    .catch(error => console.log(error))   
-                // dispatch({ 
-                //     type: GET_COORDINATES,
-                //     payload: focusedLocation 
-                // })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    const   focusedLocation = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                        country_code : responseJson.country_code,
+                        cityName: responseJson.city
+                    };
+                    let url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + focusedLocation.latitude + ',' + focusedLocation.longitude + '&radius=500&type=restaurant&key=AIzaSyAwUyFikvyvgzx2Wp2bVc3Vt_hNm4AIggM';
+                    fetch(url)
+                        .then(response => {
+                            if (response) {
+                                console.log('hello');
+    
+                                return response.json();
+                            } else {
+                                throw new Error('Something went wrong ...');
+                            }
+                        })
+                        .then(data => {
+                            try {
+                                AsyncStorage.getItem('as:auth:user',)
+                                .then(user => {
+                                    var userInfo = null;
+                                    userInfo = JSON.parse(user);
+                                    const userAndRes = {
+                                        data, focusedLocation , userInfo
+                                    }
+                                    dispatch({ type: GET_RESTAURANTS, payload: userAndRes })
+                                }).catch(err=> console.log(err));
+                            } catch (error) {
+                                
+                            }
+                           
+                        })
+                        .catch(error => console.log(error))   
+                    // dispatch({ 
+                    //     type: GET_COORDINATES,
+                    //     payload: focusedLocation 
+                    // })
+                })
+                .catch((error) => console.log(error));
             },
             (error) => console.log(error),
             {

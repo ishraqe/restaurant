@@ -3,10 +3,12 @@
 import {
     GET_RESTAURANTS_DETAILS,
     SAVE_BOOKMARK,
-    GET_BOOKMARKS
+    GET_BOOKMARKS,
+    GET_CITY,
+    
 } from "./types";
 import {AsyncStorage} from 'react-native';
-
+import RNGooglePlaces from 'react-native-google-places';
 
 export const getRestaurantDetails = ({ place_id}) => {
     console.log('inside', place_id);
@@ -16,8 +18,6 @@ export const getRestaurantDetails = ({ place_id}) => {
         fetch(url)
         .then(response => {
             if (response) {
-                console.log('hello');
-                
                 return response.json();
             } else {
                 throw new Error('Something went wrong ...');
@@ -68,5 +68,21 @@ export const bookMarkRestaurant = (info) => {
             AsyncStorage.setItem('as:info:bookmark', JSON.stringify(info));
             dispatch({type: SAVE_BOOKMARK, payload: newArray.push(info)});
        }
+    }
+}
+
+export const getCity = ({country_code, cityname, restaurantName}) => {
+    console.log( cityname, 'ac');
+    
+    return (dispatch) => {
+        RNGooglePlaces.getAutocompletePredictions(restaurantName, {
+            type: 'establishments',
+            country: country_code,
+        })
+        .then((place) => {
+            dispatch({type: GET_CITY, payload: place})
+        })
+        .catch(error => console.log(error.message));
+    
     }
 }

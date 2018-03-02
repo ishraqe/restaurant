@@ -7,3 +7,4 @@ export const GET_RESTAURANTS_DETAILS = 'get_restaurants_details';
 export const LOG_OUT ='log_out';
 export const SAVE_BOOKMARK = 'save_bookmark';
 export const GET_BOOKMARKS = 'get_bookmarks';
+export const GET_CITY ='get_city';

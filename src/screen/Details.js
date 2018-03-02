@@ -12,7 +12,9 @@ class Details extends Component {
     }
 
     componentDidMount () {
-        const place_id = this.props.item.item.place_id;        
+        const place_id = this.props.item.item.place_id; 
+        console.log(this.props.item, 'details');
+               
         this.props.get_restaurant_detail({ place_id });            
     }
 

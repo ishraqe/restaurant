@@ -73,7 +73,6 @@ class RouterComponent extends Component {
                                 tabs={true}
                                 tabBarPosition={'bottom'}
                                 tabBarLabel={({ focused }) => this.getTabIcon}
-                              
                             >
                                 <Scene
                                     initial

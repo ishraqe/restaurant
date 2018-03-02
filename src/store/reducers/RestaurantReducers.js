@@ -1,13 +1,15 @@
 import {
     GET_RESTAURANTS_DETAILS,
     SAVE_BOOKMARK,
-    GET_BOOKMARKS
+    GET_BOOKMARKS,
+    GET_CITY
 } from "../actions/types";
 
 
 const INITIAL_STATE = {
     restaurant_detail: null,
-    bookmarks: null
+    bookmarks: null,
+    city: null
 };
 
 export default (state = INITIAL_STATE, actions) => {
@@ -24,6 +26,10 @@ export default (state = INITIAL_STATE, actions) => {
             console.log(actions);
             return { ...state, bookmarks: actions.payload};
             break;
+        case GET_CITY: 
+        console.log(actions);
+        return { ...state, city: actions.payload};
+        break;    
         default:
             return state;
     }
